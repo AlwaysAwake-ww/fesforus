@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/fragment/mainHead.html :: mainHead">
+    <title>홈페이지</title>
+</head>
+
+<body id="page-top">
+
+<nav th:include="/fragment/mainBodyNav.html :: mainBodyNav" class="navbar navbar-expand-lg navbar-dark fixed-top"
+     id="mainNav">
+</nav>
+
+<header class="masthead">
+
+</header>
+<!-- 정렬방식 -->
+<form class="d-flex" action="/favoritefestival" method="GET" style="padding:5px">
+
+    <!--  Session 값 받아오기 위한 hidden tag-->
+    <input type="hidden" th:if="${session.member!=null}" th:value="0" id="session_exist_check">
+    <input type="hidden" th:if="${session.member==null}" th:value="1" id="session_exist_check">
+
+    <input class=" me-2" id="keyword" type="text" placeholder="제목검색하시오" aria-label="Search"
+           name="keyword" style="width:50%">
+    <!-- ==================== -->
+    <!--            <section id="theme">-->
+    <select class="select" name="sort" id="sort,direction" >
+        <!--                    <div name="Direction" id="Direction">-->
+        <!--                        <div class="text" >선택-->
+        <!--                    <ul class="option-list" id="keyValue" name="keyValue">-->
+        <option class="option" value="">선택</option>
+        <option class="option" value="contentViews,DESC">조회수</option>
+        <option class="option" value="festivalUploadDate,DESC">최신순</option>
+        <option class="option" value="festivalUploadDate">오래된순</option>
+        <!--                    </ul>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+    </select>
+    <!--            </section>-->
+    <button type="submit" class="btn btn-dark">검색</button>
+</form>
+<input type="hidden" id="keyword_val" th:value="${keyword}">
+
+<input type="hidden" id="sort_val" th:value="${sort}">
+<input type="hidden" id="direction_val" th:value="${direction}">
+
+<!-- ==================== -->
+<!-- 무한스크롤 축제리스트-->
+<div class="container">
+    <div class="row" id="post_list">
+        <div class="col-md-4" th:each="post : ${posts}">
+            <div class="card" style="width: 100%;">
+                <img width="180" height="300" th:src="@{/assets/img/image/}+${post.contentImage}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="festival-title" th:text="${post.festivalTitle}">축제2</h5>
+                    <p>조회수 : <span class="festival-text" th:text="${post.contentViews}"></span></p>
+                    <p>행사일 : <span class="festival-text" th:text="${post.festivalUploadDate}"></span></p>
+
+                    <a th:href="@{|/festival/${post.postNum}|}" class="btn btn-primary">자세히보기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 사이드바 -->
+<div th:include="/fragment/sideMenu.html :: sideMenu">
+
+</div>
+
+<!-- 로그인 중일 때 모달창 -->
+<div th:include="/fragment/modal.html :: loginModal-in" th:if="${session.authInfo != null}" class="modal fade"
+     id="login-Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+</div>
+
+
+<footer th:include="/fragment/mainFooter.html :: mainFooter" class="footer py-4">
+</footer>
+
+<!-- ============================= -->
+
+<!-- Bootstrap core JS-->
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
+<script src="/js/favoriteScroll.js"></script>
+<script src="/js/favorite.js"></script>
+<script src="/js/sort.js"></script>
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<!-- * *                               SB Forms JS                               * *-->
+<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+<!--<script src="main.js"></script>-->
+</body>
+
+</html>

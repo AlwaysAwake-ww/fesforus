@@ -1,0 +1,114 @@
+.OUTLINE {
+    stroke-linejoin:round;
+    stroke: #ffffff;
+    stroke-width: 2;
+}
+#CD11 {
+    fill: #f1c40f;
+}
+#CD26 {
+    fill: #16a085;
+}
+#CD27 {
+    fill: #f39c12;
+}
+#CD28 {
+    fill: #2ecc71;
+}
+#CD29 {
+    fill: #e67e22;
+}
+#CD30 {
+    fill: #27ae60;
+}
+#CD31 {
+    fill: #d35400;
+}
+#CD36 {
+    fill: #3498db;
+}
+#CD41 {
+    fill: #e74c3c;
+}
+#CD42 {
+    fill: #2980b9;
+}
+#CD43 {
+    fill: #c0392b;
+}
+#CD44 {
+    fill: #9b59b6;
+}
+#CD45 {
+    fill: #8e44ad;
+}
+#CD46 {
+    fill: #34495e;
+}
+#CD47 {
+    fill: #2c3e50;
+}
+#CD48 {
+    fill: #1abc9c;
+}
+#CD50 {
+    fill: #f1c40f;
+}
+.TEXT {
+    fill: #ffffff;
+    font-size: 16;
+    font-weight: bold;
+    text-anchor: middle;
+    alignment-baseline: middle;
+}
+#CD26:hover {
+    fill: #2980b9;
+}
+#CD11:hover {
+    fill: #d35400;
+}
+#CD27:hover {
+    fill: #d35400;
+}
+#CD28:hover {
+    fill: #0a5529;
+}
+#CD29:hover {
+    fill: #693404;
+}
+#CD30:hover {
+    fill: #0a5529;
+}
+#CD31:hover {
+    fill: #693404;
+}
+#CD36:hover {
+    fill: #0f4b74;
+}
+#CD41:hover {
+    fill: #e61a04;
+}
+#CD42:hover {
+    fill: #0f4b74;
+}
+#CD43:hover {
+    fill: #e74c3c;
+}
+#CD44:hover {
+    fill: #5c1e77;
+}
+#CD45:hover {
+    fill: #5c1e77;
+}
+#CD46:hover {
+    fill: #0f5397;
+}
+#CD47:hover {
+    fill: #0f5397;
+}
+#CD48:hover {
+    fill: #065243;
+}
+#CD50:hover {
+    fill: #79630e;
+}

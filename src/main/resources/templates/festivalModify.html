@@ -1,0 +1,205 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>글수정페이지</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
+
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script>
+        function kakaopost() {
+        new daum.Postcode({
+        oncomplete: function(data) {
+           document.querySelector("#zipcode").value = data.zonecode;
+           document.querySelector("#address").value =  data.address
+          }
+        }).open();
+      }
+    </script>
+
+  <!--  <link rel="stylesheet" href="style.css">-->
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">관리자 페이지</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/admin/festivalManagement">게시글 관리</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/admin/memberManagement">회원 관리</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/admin/noticeManagement">공지 관리</a>
+        </li>
+        <li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="/admin/chatManagement">채팅 관리</a>
+				</li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+<div class="container">
+
+  <form method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+      <label>제목</label>
+      <input type="text" class="form-control" name="festivalTitle" th:value="${posts.festivalTitle}" >
+    </div>
+    <div class="mb-3">
+      <label for="contentImage" class="form-label">축제 배경이미지</label><hr>
+      <img class="img-fluid rounded"  th:src="@{/assets/img/image/}+${posts.contentImage}"  alt="..." width="200px"><hr>
+      <input  type="file" id="contentImage" name="contentImage" >
+      <input  type="input"  id="contentImage0"  name="contentImage0" th:value="${posts.contentImage}">
+
+    </div>
+
+
+
+    <div class="form-group">
+      <label >Contents</label>
+      <textarea class="form-control" name="contentText" rows="5" th:text="${posts.contentText}"></textarea>
+
+    </div>
+
+
+
+    <div>
+      <label >축제 시작 일자</label>
+      <input type="date" name="festivalUploadDate" th:value="${posts.festivalUploadDate}">
+    </div>&nbsp;
+
+
+    <div>
+      <label >축제 주소</label>
+      <table border="1">
+        <div >
+          <select id="loc" name="BoardLocAddr">
+            <option th:value="${posts.BoardLocAddr}">[[${posts.BoardLocAddr}]]</option>
+            <option value="1">제주도</option>
+            <option value="2">전라남도</option>
+            <option value="3">전라북도</option>
+            <option value="4">충청남도</option>
+            <option value="5">충청북도</option>
+            <option value="6">경상남도</option>
+            <option value="7">경상북도</option>
+            <option value="8">서울시</option>
+            <option value="9">경기도</option>
+            <option value="10">강원도</option>
+            <option value="11">인천시</option>
+            <option value="12">대구광역시</option>
+            <option value="13">울산광역시</option>
+            <option value="14">부산광역시</option>
+            <option value="15">광주광역시</option>
+            <option value="16">세종특별자치시</option>
+            <option value="17">대전광역시</option>
+
+          </select>
+          <tr>
+            <td width="200">우편번호</td>
+            <td><input type="text" name="zipcode" id="zipcode" size="7"
+                       readonly>
+              <input type="button" value="우편번호찾기"
+                     onclick="kakaopost()" >
+            </td>
+          </tr>
+          <tr>
+            <td>주소</td>
+            <td><input type="text" name="address" id="address" size="70" th:value="${posts.boardAddr}">
+            </td>
+          </tr>
+      </table>
+      <div class="row">
+        <div class="col-md-4" >
+          <input class="form-check-input category" type="checkbox" id="category_value" name="festivalCategory" value="1" >음악<br>
+          <input class="form-check-input category" type="checkbox" id="category_value" name="festivalCategory" value="2" >음식<br>
+          <input class="form-check-input category" type="checkbox" id="category_value" name="festivalCategory" value="3" >영화<br>
+          <input class="form-check-input category" type="checkbox" id="category_value" name="festivalCategory" value="4" >종교<br>
+          <input class="form-check-input category" type="checkbox" id="category_value" name="festivalCategory" value="5" >꽃<br>
+          <input class="form-check-input category" type="checkbox" id="category_value" name="festivalCategory" value="6" >역사<br>
+          <input type="hidden" class="form-control shadow-none" th:value="${posts.festivalCategory}"
+                        id="festivalCategory" readonly>
+        </div>
+
+    </div>
+
+    <div class="text-right">
+      <input type="hidden" name="mode" value="write">
+      <!--<input type="button" class="btn btn-outline-secondary" id="btnWrite" value="글등록">-->
+      <button type="submit" class="btn btn-outline-secondary" >글수정</button>
+      <button type="button" class="btn btn-outline-danger" onclick="history.back(-1);">취소</button>
+    </div>
+
+
+  </form>
+  <script src="/js/modify.js" ></script>
+  <script src="/js/imageUpdate.js" ></script>
+
+</div>
+
+</body>
+
+<script>
+    const category_value = document.getElementById("category_value");
+    const category = document.getElementsByClassName("category");
+    const festivalCategory = document.getElementById("festivalCategory");
+    //category_check();
+
+    function category_insert() {
+
+        Array.prototype.forEach.call(category, (e) => {
+
+            if (e.checked) {
+                category_value.value += e.value + ",";
+            }
+        });
+    };
+
+document.getElementById("btnWrite").addEventListener('click', ()=>{
+
+
+    category_insert();
+    $("#festivalWrite").submit();
+
+
+});
+
+
+function category_check(){
+
+  var category_string =  festivalCategory.value.split(',');
+  category_string = category_string.slice(0,-1);
+
+  
+
+  Array.prototype.forEach.call(category, (e) => {
+      e.checked=false;
+  });
+
+  category_string.forEach((e)=>{
+      
+      idx = Number(e);
+      category[idx-1].checked=true;
+  });
+};
+
+
+</script>
+
+</html>

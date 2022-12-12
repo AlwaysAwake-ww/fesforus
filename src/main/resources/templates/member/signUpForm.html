@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:include="/fragment/mainHead.html :: mainHead">
+</head>
+
+<body>
+  <!-- Navigation-->
+  <nav th:include="/fragment/mainBodyNav.html :: mainBodyNav" class="navbar navbar-expand-lg navbar-dark fixed-top"
+    id="mainNav">
+  </nav>
+
+  <header class="masthead">
+
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="input-form-background row">
+        <div class="input-form col-md-12 mx-auto">
+          <div class="d-flex justify-content-center">
+            <h4 class="mb-3">회원가입</h4><br>
+
+
+          </div>
+          <br>
+
+          <div class="col-md-9 offset-md-3">
+            <p style="color: red;">관심 카테고리를 제외한 모든 항목은 필수입력사항입니다.</p>
+            <p style="color: red;">아이디는 변경할 수 없으니 신중하게 입력해주세요.</p>
+
+          </div>
+
+          <div class="col-md-6 offset-md-3 gap-3">
+            <form role="form" th:object="${memberForm}" class="validation-form" method="post" id="signUpForm"
+              name="signUpForm">
+              <input id="admin_check_val" th:field="*{state}" type="hidden"
+                style="font-size: 0px; width: 0px;height: 0px;" value='2'></text>
+
+              <br>
+              <label for="id">아이디 (영문 또는 숫자 혼합 5~7)</label>
+              <div class="row">
+                <div class="col-md-9">
+                  <input type="text" th:field="*{id}" class="form-control shadow-none" id="id" placeholder="" value="">
+                  <div id="id_valid_text"></div>
+                </div>
+                <div class="col-md-3">
+                  <button class="btn btn-outline-dark btn-block" type="button" id="id_dup_check">중복확인</button>
+                </div>
+              </div>
+
+
+              <br>
+              <label for="id">비밀번호 (특수문자, 영문, 숫자를 모두 사용 8~16)</label>
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="password" th:field="*{pw}" class="form-control shadow-none" id="password" placeholder=""
+                    value="">
+                  <div id="password_valid_text"></div>
+                </div>
+              </div>
+
+              <br>
+              <label for="id">비밀번호 확인</label>
+              <div class="row">
+                <div class="col-md-12">
+
+                  <input type="password" class="form-control shadow-none" id="password_check" placeholder="" value="">
+                  <div id="password_check_valid_text"></div>
+                </div>
+              </div>
+
+
+              <br>
+              <label for="nickname">닉네임 (영문 또는 한글 1~6)</label>
+              <div class="row">
+                <div class="col-md-9">
+                  <input type="text" th:field="*{nickname}" class="form-control shadow-none" id="nickname"
+                    placeholder="" value="">
+
+                  <div id="nickname_valid_text"></div>
+                </div>
+                <div class="col-md-3">
+                  <button class="btn btn-outline-dark btn-block" type="button" id="nickname_dup_check">중복확인</button>
+                </div>
+              </div>
+
+              <br>
+              <label for="email">이메일</label>
+              <div class="row">
+                <div class="col-md-7">
+                  <input type="email" th:field="*{email}" class="form-control shadow-none" id="email"
+                    placeholder="gildong@example.com">
+                  <div id="email_valid_text"></div>
+                </div>
+                <div class="col-md-4 offset-md-1">
+                  <button class="btn btn-outline-dark btn-block" type="button" id="email_auth_btn" disabled>인증번호
+                    전송</button>
+                </div>
+              </div>
+
+              <br>
+              <label for="email_check">이메일 인증</label>
+              <div class="row">
+                <div class="col-md-9">
+                  <input type="text" class="form-control shadow-none" id="email_check" placeholder="">
+                  <div id="email_check_valid_text"></div>
+                </div>
+                <div class="col-md-3">
+                  <button class="float-right btn btn-outline-dark btn-block btn-md" type="button"
+                    id="email_auth_submit_btn">인증</button>
+                </div>
+              </div>
+
+              <br>
+              <label for="birth">생년월일</label>
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="date" th:field="*{birth}" class="form-control shadow-none" id="birth" placeholder="">
+                  <div id="birth_valid_text"></div>
+
+                </div>
+              </div>
+
+
+              <br>
+              <label for="address">주소</label>
+              <div class="row">
+                <div class="col-md-6">
+                  <input class="form-control shadow-none" type="text" id="postcode" placeholder="우편번호" readonly>
+                </div>
+                <div class="col-md-5 offset-md-1">
+                  <input class="form-control btn btn-outline-dark btn-block" type="button" onclick="execDaumPostcode()"
+                    value="우편번호 찾기"><br>
+
+                </div>
+                <div class="col-md-12 mb-4">
+                  <input class="form-control shadow-none" type="text" id="detailAddress" placeholder="상세주소">
+                  <div id="detailAddress_valid_text"></div>
+
+                </div>
+                <div class="col-md-6">
+                  <input class="form-control shadow-none" type="text" id="address" placeholder="주소" readonly>
+                  <div id="address_valid_text"></div>
+
+                </div>
+                <div class="col-md-6">
+                  <input class="form-control shadow-none" type="text" id="extraAddress" placeholder="참고항목" readonly>
+                </div>
+                <input id="addr_value" th:field="*{addr}" type="hidden" style="font-size: 0px; width: 0px;height: 0px;"
+                  value=""></text>
+              </div>
+
+
+
+              <br>
+              <label for="address">관심 카테고리 (2개 이상 선택가능)</label><br><br>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <input id="category_checkbox1" class="form-check-input category" type="checkbox" value="1"> <label
+                    for="category_checkbox1">음악</label><br>
+                  <br>
+
+                  <input id="category_checkbox2" class="form-check-input category" type="checkbox" value="2"> <label
+                    for="category_checkbox2">음식</label><br>
+                  <br>
+                  <input id="category_checkbox3" class="form-check-input category" type="checkbox" value="3"> <label
+                    for="category_checkbox3">영화</label><br>
+                  <br>
+                </div>
+                <div class="col-md-6">
+                  <input id="category_checkbox4" class="form-check-input category" type="checkbox" value="4"> <label
+                    for="category_checkbox4">종교</label><br>
+                  <br>
+                  <input id="category_checkbox5" class="form-check-input category" type="checkbox" value="5"> <label
+                    for="category_checkbox5">꽃</label><br>
+                  <br>
+                  <input id="category_checkbox6" class="form-check-input category" type="checkbox" value="6"> <label
+                    for="category_checkbox6">역사</label><br>
+                  <br>
+                </div>
+                <div id="selected_category">
+
+                </div>
+                <input id="category_value" th:field="*{category}" type="hidden"
+                  style="font-size: 0px; width: 0px;height: 0px;" value=""></text>
+              </div>
+
+              <!-- <hr class="mb-4">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="agrement" >
+          <label class="custom-control-label" for="agrement">개인정보 수집 및 이용에 동의합니다.</label>
+        </div> -->
+              <br>
+              <br>
+              <br>
+
+              <input type="button" class="btn btn-outline-dark btn-lg btn-block" id="submitForm" value="회원가입">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 로그인 중일 때 모달창 -->
+  <div th:include="/fragment/modal.html :: loginModal-in" th:if="${session.authInfo != null}" class="modal fade"
+    id="login-Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  </div>
+
+
+  <!-- 로그인 중이 아닐때 모달 -->
+  <div th:include="/fragment/modal.html :: loginModal-out" th:if="${session.authInfo == null}" class="modal fade"
+    id="login-Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  </div>
+  <footer th:include="/fragment/mainFooter.html :: mainFooter" class="footer py-4">
+  </footer>
+
+  <!-- Bootstrap core JS-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Core theme JS-->
+  <!--        수정해야할 부분==================================-->
+  <script src="/js/scripts.js"></script>
+
+  <!-- 모달 -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- 홈 전체 -->
+  <script src="/js/home.js"></script>
+
+  <!-- 다음 주소 API -->
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script src="/js/jusoApi.js"></script>
+
+  <!-- 유효성검사 -->
+  <script src="/js/validation.js"></script>
+
+  <!-- Jquery cdn -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+  <!-- memberModify -->
+  <script src="/js/memberModify.js"></script>
+
+
+  <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+  <!-- * *                               SB Forms JS                               * *-->
+  <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+  <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+  <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+<script>
+
+</script>
+
+</html>

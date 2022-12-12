@@ -1,0 +1,75 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.5'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'java'
+}
+
+group = 'com.festivalP'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	all {
+		//logback과의 충돌 방지
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+//compile('org.springframework.boot:spring-boot-devtools')
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.jetbrains:annotations:20.1.0'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
+
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+
+	// 암호화 API (Spring Security
+	implementation 'org.springframework.security:spring-security-test'
+
+	// Java jwt
+	implementation 'com.auth0:java-jwt:4.2.1'
+
+	// Json Web Token
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+	// Javax mail API
+//	implementation 'javax.mail:mail:1.5.0-b01'
+
+	// 이메일 인증 API
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	//log4j2
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+
+	// web socket
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.webjars:sockjs-client:1.1.2'
+	implementation 'org.webjars:stomp-websocket:2.3.3-1'
+//	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+//	타임리프-spring security5 뷰 단계에서 현재 로그인 된 사용자 정보 가져오기 위함
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+//	added
+//	runtimeOnly 'com.h2database:h2'
+//	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+//	implementation 'org.springframework.boot:spring-boot-starter-security'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

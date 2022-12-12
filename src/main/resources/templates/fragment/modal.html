@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<body th:frgment="allModal">
+
+
+
+    <!-- 로그인 중일 때 모달창 -->
+    <div th:fragment="loginModal-in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">회원 정보</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3 text-center">
+                            <div th:if="${session.authInfo.state==0}">
+                                <span class="text-center">일반회원</span>
+                            </div>
+                            <div th:if="${session.authInfo.state==2}">
+                                <span class="text-center">관리자</span>
+                            </div>
+
+                            <span th:if="${session.authInfo.state==0}"
+                                class="text-center align-self-center">[[${session.member.memberNickname}]]</span>
+                            <span th:if="${session.authInfo.state==2}" class="text-center align-self-center">관리자</span>
+                            <span class="text-center"> 님 환영합니다!</span>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button th:if="${session.member!=null}" type="button" class="btn btn-primary" id="my_page_btn"
+                        onclick="window.location.href='/member/mypage'">마이페이지</button>
+                    <button type="button" class="btn btn-dark" id="logout_btn" onclick="logoutClick()">로그아웃</button>
+                </div>
+            </div>
+        </div>
+        <!-- 모달 -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <!-- 로그인 -->
+        <script src="/js/login.js"></script>
+
+    </div>
+
+
+    <!-- 로그인 중이 아닐때 모달 -->
+    <div th:fragment="loginModal-out">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">로그인</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">아이디</label>
+                            <input type="text" class="form-control" id="login_id">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">비밀번호</label>
+                            <input class="form-control" id="login_password" type="password"></textarea>
+                        </div>
+                        <p><a href="#" id="signup-click" class="tooltip-test" title="Tooltip"
+                                onclick="signupClick()">회원가입</a></p>
+                        <!-- <p><a href="#" class="tooltip-test" title="Tooltip"  data-bs-toggle="modal" data-bs-target="#signup-Modal">회원가입</a></p> -->
+
+
+                        <p><a href="/member/findaccountid" class="tooltip-test" title="Tooltip" >아이디 찾기</a></p>
+                        <p><a href="/member/findaccountpw" class="tooltip-test" title="Tooltip">비밀번호 찾기</a></p>
+
+
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <input type="checkbox" id="admin_login_check">
+                    <label for="admin_login_check">관리자 로그인</label>
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button> -->
+                    <button type="button" class="btn btn-primary" id="login_btn" onclick="loginClick()">로그인</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- 모달 -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <!-- 로그인 -->
+        <script src="/js/login.js"></script>
+
+
+
+    <!-- 로그인 -->
+    <script src="/js/login.js"></script>
+    <script src="/js/findIdPw.js"></script>
+
+
+    </div>
+
+
+    <!-- 회원정보 수정 시 비밀번호 재확인 모달 -->
+    <div th:fragment="passwordRecheckModal" class="modal fade" id="modify-Modal" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">비밀번호 재확인</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">비밀번호</label>
+                            <input class="form-control" id="login_password" type="password">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="go_to_modify">비밀번호 확인</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- 비밀번호 변경 모달 -->
+    <div th:fragment="passwordRecheckModal-2" class="modal fade" id="modify-pw-Modal" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">비밀번호 재확인2</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">비밀번호</label>
+                            <input class="form-control" id="pw_modify_login_password" type="password">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="go_to_pw_modify">비밀번호 확인</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 공지사항 모달 -->
+    <div th:fragment="noticeModal">
+        <div class="modal-dialog">
+            <div class="modal-content " th:each="notice : ${notice}">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel2" th:text="${notice.contentTitle}">공지제목</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" th:text="${notice.contentText}">
+                    공지입니다아ㅏ아ㅏ
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='/notice'">공지사항 더 보러가기</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>

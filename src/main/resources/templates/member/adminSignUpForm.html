@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입</title>
+
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+
+
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        
+  <link rel="stylesheet" href="/css/signup_stylesheet.css">
+
+
+  
+ <!-- Font Awesome icons (free version)-->
+ <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+ <!-- Google fonts-->
+ <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+ <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+        <!-- ============================================================================= -->
+        <!-- 페이지 로고 이미지 바꿀부분입니다!!!!!!!!!!! -->
+        <a class="navbar-brand" href="#page-top"><img src="/assets/img/navbar-logo.svg" alt="..." /></a>
+        <!-- ============================================================================================= -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ms-1"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                <li th:if="${session.authInfo == null}" class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#login-Modal">로그인</a></li>
+                <li th:if="${session.authInfo != null}" class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#login-Modal">내 정보</a></li>
+                <li class="nav-item"><a class="nav-link" href="/allfestival">전체목록</a></li>
+                <li class="nav-item"><a class="nav-link" href="/favorites">내 즐겨찾기</a></li>
+                <li class="nav-item"><a class="nav-link" href="/localFestival">지역별 축제</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="/notice">공지사항</a></li>
+                <li th:if="${session.authInfo != null} and ${session.authInfo.state==2}" class="nav-item"><a class="nav-link" href="/admin">관리자 페이지</a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="input-form-background row">
+      <div class="input-form col-md-12 mx-auto">
+        <div class="d-flex justify-content-center">
+          <h4 class="mb-3">관리자 회원가입</h4>
+
+        </div>
+        <br><p style="color: red;">관심 카테고리를 제외한 모든 항목은 필수입력사항입니다.</p><br><br>
+
+        <form role="form" th:object="${adminForm}" class="validation-form" method="post" id="signUpForm" name="signUpForm">
+          <br>
+          <label for="id">아이디 (영문 또는 숫자 혼합 5~7)</label>
+          <div class="row">
+            <div class="col-md-9">
+              <input type="text" th:field="*{id}" class="form-control shadow-none" id="id" placeholder="" value="">
+              <div id="id_valid_text"></div>
+            </div>
+            <div class="col-md-3">
+              <button class="btn btn-outline-dark btn-block" type="button" id="id_dup_check">중복확인</button>
+            </div>
+          </div>
+
+
+          <br>
+          <label for="id">비밀번호 (특수문자, 영문, 숫자를 모두 사용 8~16)</label>
+          <div class="row">
+            <div class="col-md-12">
+              <input type="password" th:field="*{pw}" class="form-control shadow-none" id="password" placeholder="" value="" >
+              <div id="password_valid_text"></div>
+            </div>
+          </div>
+
+          <br>
+          <label for="id">비밀번호 확인</label>
+          <div class="row">
+            <div class="col-md-12">
+
+              <input type="password" class="form-control shadow-none" id="password_check" placeholder="" value="" >
+              <div id="password_check_valid_text"></div>
+            </div>
+          </div>
+
+          <br>
+          <br>
+          <br>
+
+          <input type="button" class="btn btn-outline-dark btn-lg btn-block"  id="submitForm" value="회원가입">
+        </form>
+      </div>
+    </div>
+  <footer class="my-3 text-center text-small">
+    hello.Inc
+  </footer>
+</div>
+
+<!-- 모달창 -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- 유효성 검사 -->
+<script src="/js/adminValidation.js"></script>
+
+<!-- 암호화(Crypto js) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- JQuery 스니펫 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.1.slim.js" integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script> -->
+</body>
+</html>

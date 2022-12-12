@@ -1,0 +1,33 @@
+body {
+  /* font-family: 'BMJUA'; */
+  min-height: 100vh;
+
+}
+
+
+
+@font-face {
+font-family: 'BMJUA';
+src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+font-weight: normal;
+font-style: normal;
+}
+
+
+.validText{
+    outline: 10px, red;
+    border: 10px, red;
+    color:green;
+}
+
+.invalidText{
+  color:red;
+  
+}
+
+
+.valid{
+  outline-style: solid;
+
+  outline-color: rgb(9, 252, 9);
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+
+<div>
+    <div th:fragment="noticeCarousel">
+        <script>
+            $.ajax({
+                url: "/noticerefresh",
+                async: true,
+                method: "POST"
+            })
+                .done(function (notice) {
+
+
+
+                    document.getElementById("carousel-item-1").textContent = notice[0].contentTitle;
+                    document.getElementById("carousel-item-1").setAttribute("href", "/notice/" + notice[0].postNum);
+
+                    document.getElementById("carousel-item-2").textContent = notice[1].contentTitle;
+                    document.getElementById("carousel-item-2").setAttribute("href", "/notice/" + notice[1].postNum);
+
+
+                    document.getElementById("carousel-item-3").textContent = notice[2].contentTitle;
+                    document.getElementById("carousel-item-3").setAttribute("href", "/notice/" + notice[2].postNum);
+
+                })
+
+                .fail(function (xhr, status, errorThrown) {
+                    alert('fail');
+                });
+        </script>
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <div>
+                    <a type="text" class="nav-link d" id="carousel-item-1" text="" value="" href=""></a>
+                </div>
+
+            </div>
+            <div class="carousel-item">
+                <div>
+                    <a type="text" class="nav-link d-block" id="carousel-item-2" text="" value="" href=""></a>
+
+                </div>
+
+
+            </div>
+            <div class="carousel-item">
+                <div>
+                    <a type="text" class="nav-link d-block" id="carousel-item-3" text="" value="" href=""></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

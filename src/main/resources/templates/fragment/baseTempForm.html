@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:fragment="mainHeader" >
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>마이페이지</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <!--        <link href="/startbootstrap-agency-gh-pages/css/styles.css" rel="stylesheet" />-->
+    <!--        수정부분===========================================-->
+    <link href="/css/styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <!-- ============================================================================= -->
+            <!-- 페이지 로고 이미지 바꿀부분입니다!!!!!!!!!!! -->
+            <a class="navbar-brand" href="/"><img src="/assets/img/navbar-logo.svg" alt="..." /></a>
+            <!-- ============================================================================================= -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li th:if="${session.authInfo == null}" class="nav-item"><a class="nav-link" href="#"
+                            data-bs-toggle="modal" data-bs-target="#login-Modal">로그인</a></li>
+                    <li th:if="${session.authInfo != null}" class="nav-item"><a class="nav-link" href="#"
+                            data-bs-toggle="modal" data-bs-target="#login-Modal">내 정보</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/allfestival">전체목록</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/favorites">내 즐겨찾기</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/localFestival">지역별 축제</a></li>
+<!--                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>-->
+                    <li class="nav-item"><a class="nav-link" href="/notice">공지사항</a></li>
+                    <li th:if="${session.authInfo != null} and ${session.authInfo.state==2}" class="nav-item"><a
+                            class="nav-link" href="/admin/festivalManagement">관리자 페이지</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="masthead">
+
+    </header>
+
+    <!-- 로그인 중일 때 모달창 -->
+    <div th:if="${session.authInfo != null}" class="modal fade" id="login-Modal" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">회원 정보</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3 text-center">
+                            <div th:if="${session.authInfo.state==0}">
+                                <span class="text-center">일반회원</span>
+                            </div>
+                            <div th:if="${session.authInfo.state==2}">
+                                <span class="text-center">관리자</span>
+                            </div>
+
+                            <span th:if="${session.authInfo.state==0}"
+                                class="text-center align-self-center">[[${session.member.memberNickname}]]</span>
+                            <span th:if="${session.authInfo.state==2}" class="text-center align-self-center">관리자</span>
+                            <span class="text-center"> 님 환영합니다!</span>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button> -->
+                    <button type="button" class="btn btn-primary" id="my_page_btn"
+                        onclick="window.location.href='/member/mypage'">마이페이지</button>
+                    <button type="button" class="btn btn-dark" id="logout_btn" onclick="logoutClick()">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  -->
+
+    <!-- 비밀번호 모달 -->
+    <div class="modal fade" id="modify-Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">정보 수정을 원하시면 비밀번호를 입력해주세요.</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">비밀번호</label>
+                            <input class="form-control" id="login_password" type="password">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button> -->
+                    <button type="button" class="btn btn-primary" id="go_to_modify">비밀번호 확인</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  -->
+
+
+    <section>
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">마이페이지</h2>
+                <h3 class="section-subheading text-muted">회원정보 수정을 원하시면 수정 버튼을 눌러주세요</h3>
+            </div>
+            <br><br>
+            <br><br>
+            <div class="d-flex">
+                <div class="col-md-6 offset-md-3 gap-3">
+
+                    아이디
+                    <div class="row">
+                        <input type="text" class="form-control shadow-none" th:value="${session.member.memberId}"
+                            id="memberId" readonly>
+                    </div>
+                    <br>
+
+                    닉네임
+                    <div class="row">
+                        <input type="text" class="form-control shadow-none" th:value="${session.member.memberNickname}"
+                            id="memberNickname" readonly>
+
+                    </div>
+                    <br>
+
+
+                    주소
+                    <div class="row">
+                        <input type="text" class="form-control shadow-none" th:value="${session.member.memberAddr}"
+                            id="memberAddr" readonly>
+                    </div>
+                    <br>
+
+
+                    생년월일
+                    <div class="row">
+                        <input type="date" class="form-control shadow-none" th:value="${session.member.memberBirth}"
+                            id="memberBirth" readonly>
+                    </div>
+                    <br>
+
+
+                    이메일
+                    <div class="row">
+                        <input type="text" class="form-control shadow-none" th:value="${session.member.memberEmail}"
+                            id="memberEmail" readonly>
+                    </div>
+                    <br>
+
+
+                    관심카테고리
+                    <div class="row">
+                        <input type="text" class="form-control shadow-none" th:value="${session.member.memberCategory}"
+                            id="member_category" readonly>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <input class="form-check-input category_view" type="checkbox" value="1" disabled>Category1<br>
+                                    <input class="form-check-input category_view" type="checkbox" value="2" disabled>Category2<br>
+                                    <input class="form-check-input category_view" type="checkbox" value="3" disabled>Category3<br>
+                                    <input class="form-check-input category_view" type="checkbox" value="4" disabled>Category4<br>
+                                </div>
+                                <div class="col-md-4">
+                                    <input class="form-check-input category_view" type="checkbox" value="5" disabled>Category5<br>
+                                    <input class="form-check-input category_view" type="checkbox" value="6" disabled>Category6<br>
+                                    <input class="form-check-input category_view" type="checkbox" value="7" disabled>Category7<br>
+                                    <input class="form-check-input category_view" type="checkbox" value="8" disabled>Category8<br>
+                                </div>
+                                <div class="col-md-4">
+                                    <input class="form-check-input category_view" type="checkbox" value="9" disabled>Category9<br>
+                                    <input class="form-check-input category_view" type="checkbox" value="10" disabled>Category10<br>
+                                    <input class="form-check-input category_view" type="checkbox" value="11" disabled>Category11<br>
+                                    <input class="form-check-input category_view" type="checkbox" value="12" disabled>Category12<br>
+                                </div>
+                            </div>
+                        <input type="text" class="form-control shadow-none" th:value="${session.member.memberCategory}"
+                            id="memberCategory" readonly>
+                    </div>
+                    <br><br>
+
+                </div>
+            </div>
+            <section>
+                <div class="col-md-6 offset-md-3">
+                    <div class="row">
+                        <!-- <input type="button" class="btn btn-primary btn-xl" id="modify_btn" value="회원정보 수정"> -->
+                        <input type="button" class="btn btn-primary btn-xl" value="회원정보 수정" href="#"
+                            data-bs-toggle="modal" data-bs-target="#modify-Modal">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <!--        수정해야할 부분==================================-->
+    <script src="/js/scripts.js"></script>
+
+    <!-- 모달 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- 로그인 -->
+    <script src="/js/login.js"></script>
+
+    <!-- 홈 전체 -->
+    <script src="/js/home.js"></script>
+
+    <!-- 마이페이지 -->
+    <script src="/js/myPage.js"></script>
+
+    <!-- 다음 주소 API -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="/js/jusoApi.js"></script>
+
+    <!-- Jquery cdn -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+
+
+
+
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- * *                               SB Forms JS                               * *-->
+    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+</html>

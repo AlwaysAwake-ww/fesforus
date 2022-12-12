@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:include="/fragment/mainHead.html :: mainHead">
+
+
+</head>
+
+<body>
+<!-- Navigation-->
+<nav th:include="/fragment/mainBodyNav.html :: mainBodyNav" class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+</nav>
+
+<header class="masthead">
+</header>
+
+
+
+<section>
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">마이페이지</h2>
+            <h3 class="section-subheading text-muted">회원정보 수정을 원하시면 수정 버튼을 눌러주세요</h3>
+        </div>
+        <br><br>
+        <br><br>
+        <div>
+            <div class="col-md-6 offset-md-3 gap-3">
+
+                아이디
+                <div class="row">
+                    <input type="text" class="form-control shadow-none" th:value="${session.member.memberId}"
+                           id="memberId" readonly>
+                </div>
+                <br>
+
+                닉네임
+                <div class="row">
+                    <input type="text" class="form-control shadow-none" th:value="${session.member.memberNickname}"
+                           id="memberNickname" readonly>
+
+                </div>
+                <br>
+
+
+                주소
+                <div class="row">
+                    <input type="text" class="form-control shadow-none" th:value="${session.member.memberAddr}"
+                           id="memberAddr" readonly>
+                </div>
+                <br>
+
+
+                생년월일
+                <div class="row">
+                    <input type="date" class="form-control shadow-none" th:value="${session.member.memberBirth}"
+                           id="memberBirth" readonly>
+                </div>
+                <br>
+
+
+                이메일
+                <div class="row">
+                    <input type="text" class="form-control shadow-none" th:value="${session.member.memberEmail}"
+                           id="memberEmail" readonly>
+                </div>
+                <br>
+
+
+                관심카테고리
+                    <div class="row">
+                        <input type="hidden" class="form-control shadow-none" th:value="${session.member.memberCategory}"
+                        id="memberCategory" readonly>
+                        <div class="col-md-6">
+                            <input class="form-check-input category_view" type="checkbox" value="1" disabled>음악<br>
+                            <input class="form-check-input category_view" type="checkbox" value="2" disabled>음식<br>
+                            <input class="form-check-input category_view" type="checkbox" value="3" disabled>영화<br>
+                        </div>
+                        <div class="col-md-6">
+                        
+                            <input class="form-check-input category_view" type="checkbox" value="4" disabled>종교<br>
+                            <input class="form-check-input category_view" type="checkbox" value="5" disabled>꽃<br>
+                            <input class="form-check-input category_view" type="checkbox" value="6" disabled>역사<br>
+                        </div>
+                    </div>
+                <br><br>
+            </div>
+        </div>
+        <section>
+            <div class="col-md-6 offset-md-3">
+                <div class="row">
+                    <!-- <input type="button" class="btn btn-primary btn-xl" id="modify_btn" value="회원정보 수정"> -->
+                    <input type="button" class="btn btn-primary btn-xl" value="비밀번호 변경" href="#"
+                           data-bs-toggle="modal" data-bs-target="#modify-pw-Modal">
+                </div>
+            </div>
+            <div class="col-md-6 offset-md-3">
+                <div class="row">
+                    <!-- <input type="button" class="btn btn-primary btn-xl" id="modify_btn" value="회원정보 수정"> -->
+                    <input type="button" class="btn btn-primary btn-xl" value="회원정보 수정" href="#"
+                           data-bs-toggle="modal" data-bs-target="#modify-Modal">
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+
+<!-- 로그인 중일 때 모달창 -->
+<div th:include="/fragment/modal.html :: loginModal-in" class="modal fade" id="login-Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+</div>
+
+<!-- 회원정보수정 비밀번호 재확인 모달 -->
+<div th:include="/fragment/modal.html :: passwordRecheckModal" class="modal fade" id="modify-Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+</div>
+<!-- 비밀번호 변경 비밀번호 재확인 모달 -->
+<div th:include="/fragment/modal.html :: passwordRecheckModal-2" class="modal fade" id="modify-pw-Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+</div>
+
+
+<footer th:include="/fragment/mainFooter.html :: mainFooter" class="footer py-4">
+</footer>
+
+
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<!--        수정해야할 부분==================================-->
+<script src="/js/scripts.js"></script>
+
+
+<!-- 마이페이지 -->
+<script src="/js/myPage.js"></script>
+
+<!-- 다음 주소 API -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/js/jusoApi.js"></script>
+
+
+<!-- Jquery cdn -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+ 
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<!-- * *                               SB Forms JS                               * *-->
+<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+<script>
+
+    console.log("script ON");
+
+
+    document.getElementById("go_to_modify").addEventListener('click', () => {
+        var login_id = $("#memberId").val();
+        var login_password = $("#login_password").val();
+        $.ajax({
+            type: "POST",
+            async: true,
+            url: "/member/mypage/modify",
+            data: {
+                login_id: login_id,
+                login_password: login_password
+            }
+        })
+            .done(function (text) {
+                console.log(text);
+                if (text == "S") {
+                    Swal.fire({
+                        title: '로그인 성공',
+                        confirmButtonText: '확인',
+                    }).then(() => {
+                        location.href = '/member/modifypage';
+                    });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '로그인 실패',
+                        text: '아이디 혹은 비밀번호를 확인하세요.',
+                        confirmButtonText: '확인',
+                    });
+                }
+
+            })
+            .fail(function () {
+                alert("Ajax 실패");
+
+            });
+    });
+
+    document.getElementById("go_to_pw_modify").addEventListener('click', () => {
+        
+        var login_id = $("#memberId").val();
+        var pw_modify_login_password = $("#pw_modify_login_password").val();
+        $.ajax({
+            type: "POST",
+            async: true,
+            url: "/member/mypage/pwmodify",
+            data: {
+                login_id: login_id,
+                pw_modify_login_password: pw_modify_login_password
+            }
+        })
+            .done(function (text) {
+                console.log(text);
+                if (text == "S") {
+                    Swal.fire({
+                        title: '로그인 성공',
+                        confirmButtonText: '확인',
+                    }).then(() => {
+                        location.href = '/member/pwmodifypage';
+                    });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '로그인 실패',
+                        text: '아이디 혹은 비밀번호를 확인하세요.',
+                        confirmButtonText: '확인',
+                    });
+                }
+
+            })
+            .fail(function () {
+                alert("Ajax 실패");
+
+            });
+    });
+
+</script>
+
+</html>

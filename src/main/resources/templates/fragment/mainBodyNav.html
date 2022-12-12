@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<!-- Navigation-->
+<nav th:fragment="mainBodyNav" class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+
+
+    <div class="container">
+        <!-- ============================================================================= -->
+        <!-- 페이지 로고 이미지 바꿀부분입니다!!!!!!!!!!! -->
+        <a class="navbar-brand" href="/"><img src="/assets/img/navbar-logo.png" style="height:60px" alt="..." /></a>
+        <!-- ============================================================================================= -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ms-1"></i>
+        </button>
+
+
+
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <!-- 공지 캐러셀 -->
+
+            <div th:include="/fragment/noticeCarousel.html :: noticeCarousel" id="" class="carousel slide carousel-fade"
+                data-bs-ride="carousel">
+            </div>
+            <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+
+                <li th:if="${session.authInfo == null}" class="nav-item"><a class="nav-link" href="#"
+                        data-bs-toggle="modal" data-bs-target="#login-Modal">로그인</a></li>
+                <li th:if="${session.authInfo != null}" class="nav-item"><a class="nav-link" href="#"
+                        data-bs-toggle="modal" data-bs-target="#login-Modal">내 정보</a></li>
+                <li class="nav-item"><a class="nav-link" href="/allfestival">전체목록</a></li>
+                <li th:if="${session.member!=null}" class="nav-item"><a class="nav-link" href="/favoritefestival">즐겨찾기</a></li>
+                <li th:if="${session.member!=null}" class="nav-item"><a class="nav-link" href="/categoryfestival">관심축제목록</a></li>
+                <li class="nav-item"><a class="nav-link" href="/localFestival">지역별 축제</a></li>
+                <li class="nav-item"><a class="nav-link" href="/notice">공지사항</a></li>
+                <li th:if="${session.authInfo != null} and ${session.authInfo.state==2}" class="nav-item"><a
+                        class="nav-link" href="/admin/festivalManagement">관리자 페이지</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id='chat'>
+		<h1>WebSocket Chatting</h1>
+        <input type='button' id='chatroom_create_btn' value='채팅방생성'>
+		<input type='text' id='chat_name' value='채팅방이름'>
+        
+        <input type='text' id='mid' value='홍길동'>
+		<input type='button' value='로그인' id='btnLogin'>
+		<br/>
+		<div id='talk'></div>
+		<div id='sendZone'>
+			<textarea id='msg' value='hi...' ></textarea>
+			<input type='button' value='전송' id='btnSend'>
+		</div>
+	</div>
+	<script src='/js/chat.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</body>
+</html>

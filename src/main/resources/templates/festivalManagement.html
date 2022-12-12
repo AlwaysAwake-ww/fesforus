@@ -1,0 +1,108 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>축제관리</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+
+
+
+
+</head>
+<body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">관리자 페이지</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/admin/festivalManagement">게시글 관리</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/admin/memberManagement">회원 관리</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/admin/noticeManagement">공지 관리</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</nav>
+
+<div>
+
+
+
+  <!--    검색-->
+  <form action="/admin/festivalManagement" method="GET" class=class="d-flex" role="search">
+    <input type="text" name="keyword" class="form-control me-2" id="search" placeholder="검색">
+    <button class="btn btn-success bi bi-search">글제목검색</button>
+    <button class="btn btn-outline-success" type="button" onclick="location.href='/admin/festivalWrite'">글작성</button>
+  </form>
+</div>
+
+<div id="board">
+  <ol class="list-group list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-start" th:each="post : ${posts}">
+      <div class="ms-2 me-auto"  >
+        <a class="fw-bold" th:text="${post.festivalTitle}" th:href="@{|/festival/${post.postNum}|}"></a>
+        <td >글번호=[[${post.postNum}]]</td>
+      </div>
+      <form action="festivalManagement" method="post">
+
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-primary" th:onclick="|javascript:post_modify(${post.postNum})|">수정</button>
+          <button type="button" class="btn btn-primary" th:onclick="|javascript:post_delete(${post.postNum})|">삭제</button>
+        </div>
+      </form>
+
+
+    </li>
+  </ol>
+</div>
+
+<!--페이징-->
+<nav style="text-align: center;" name="Page-navigation" aria-label="Page navigation example"
+     th:with="start=${(posts.number/maxPage)*maxPage + 1},
+                  end=(${(posts.totalPages == 0) ? 1 : (start + (maxPage - 1) < posts.totalPages ? start + (maxPage - 1) : posts.totalPages)})" >
+  <ul class="pagination">
+    <li th:if="${start > 1}" class="page-item">
+      <a th:href="@{/admin/festivalManagement?(keyword=${keyword}, page=0)}" th:text="'처음으로 이동'" class="page-link"></a></li>
+    </li>
+
+    <li th:if="${start > 1}" class="page-item">
+      <a th:href="@{/admin/festivalManagement?(keyword=${keyword},page=${start - maxPage})}" th:text="'이전'" class="page-link"></a>
+    </li>
+
+    <li th:each="page: ${#numbers.sequence(start, end)}" class="page-item">
+      <a th:href="@{/admin/festivalManagement?(keyword=${keyword}
+
+          , page=${page-1})}" th:text="${page}" class="page-link"></a></li>
+    </li>
+
+    <li th:if="${end < posts.totalPages}" class="page-item">
+      <a th:href="@{/admin/festivalManagement?(keyword=${keyword}, page=${start + maxPage})}" th:text="'다음'" class="page-link"></a>
+    </li>
+
+    <li th:if="${end < posts.totalPages}" class="page-item">
+      <a th:href="@{/admin/festivalManagement?(keyword=${keyword}, page=${posts.totalPages-1})}" th:text="'마지막페이지로이동'" class="page-link"></a>
+    </li>
+  </ul>
+
+</nav>
+
+
+<script src="/js/modify.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</body>
+
+
+</html>
