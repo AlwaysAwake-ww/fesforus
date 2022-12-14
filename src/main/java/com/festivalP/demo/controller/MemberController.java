@@ -421,13 +421,4 @@ public class MemberController {
         return "findId";
     }
 
-
-//    @RequestMapping("/findid")
-//    public String findId() {
-//
-//        return "findId";
-//    }
-
-
-
 }

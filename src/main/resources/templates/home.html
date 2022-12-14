@@ -38,11 +38,13 @@
                 <div class="col-md-4" th:each="topview : ${topview}">
                     <div class="card" style="width: 100%;">
                         <img width="180" height="300" th:src="@{/assets/img/image/}+${topview.contentImage}" class="card-img-top" alt="...">
+
+
                         <div class="card-body">
                             <h5 th:text="${topview.festivalTitle}" class="card-title">축제1</h5>
                             <p>조회수</p>
                             <p th:text="${topview.contentViews}"></p>
-                            <a th:if="${session.member!=null}" th:href="@{|/festival/${topview.postNum}|}" class="btn btn-primary">자세히보기</a>
+                            <a th:if="${session.authInfo!=null}" th:href="@{|/festival/${topview.postNum}|}" class="btn btn-primary">자세히보기</a>
                         </div>
                     </div>
                 </div>
@@ -64,6 +66,8 @@
                 <div class="col-md-4" th:each="topdate : ${topdate}">
                     <div class="card" style="width: 100%;">
                         <img width="180" height="300" th:src="@{/assets/img/image/}+${topdate.contentImage}" class="card-img-top" alt="...">
+
+
                         <div class="card-body">
                             <h5 th:text="${topdate.festivalTitle}" class="card-title">축제명</h5>
                             <p th:text="${topdate.festivalUploadDate}" class="card-text">게시일자</p>

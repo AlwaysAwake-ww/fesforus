@@ -58,6 +58,7 @@ public class PostController {
         model.addAttribute("posts",festivals);
         model.addAttribute("keyword", keyword);
 //        model.addAttribute("pageable", pageable);
+                model.addAttribute("pageable", pageable);
         model.addAttribute("sort",sort);
         model.addAttribute("direction",direction);
         return "every_festival_board";
@@ -99,14 +100,9 @@ public class PostController {
         List<Posts> post = festivalService.findOne(postNum);
         model.addAttribute("post", post);
         List<Review> reviews = festivalService.findReviewOne(postNum);
-        System.out.println("리뷰사이즈임!!!!!!!!!!!!!!!!");
-        System.out.println(reviews.size());
         model.addAttribute("reviews",reviews);
-        System.out.println("postNUM!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(postNum);
 
         PostForm postForm = new PostForm();
-        System.out.println("@@@@@@@@@@@@@@ " +post.get(0).getPostNum());
 
         postForm.setPostNum(post.get(0).getPostNum());
         postForm.setAdminIndex(post.get(0).getAdminIndex());

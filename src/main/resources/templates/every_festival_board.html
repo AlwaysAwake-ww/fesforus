@@ -58,7 +58,12 @@
 
 <!-- Masthead-->
 <header class="masthead">
+  <div class="container">
+        
+    <div class="masthead-heading text-uppercase">전체목록</div>
+    <div class="masthead-subheading">등록된 모든 축제 목록입니다</div>
 
+</div>
 </header>
 <div style="padding:10px"></div>
 <!-- 검색창 -->
@@ -68,7 +73,7 @@
     <input type="hidden" th:if="${session.member!=null}" th:value="0" id="session_exist_check">
     <input type="hidden" th:if="${session.member==null}" th:value="1" id="session_exist_check">
 
-    <input class=" me-2" id="keyword" type="text" placeholder="제목검색하시오" aria-label="Search"
+    <input class=" me-2" id="keyword" type="text" placeholder="" aria-label="Search"
            name="keyword" style="width:50%">
     <!-- ==================== -->
     <select class="select" name="sort" id="sort,direction" >
@@ -95,12 +100,14 @@
         <div class="col-md-4" th:each="post : ${posts}">
             <div class="card" style="width: 100%;">
                 <img width="180" height="300" th:src="@{/assets/img/image/}+${post.contentImage}" class="card-img-top" alt="...">
+
+
                 <div class="card-body">
                     <h5 class="festival-title" th:text="${post.festivalTitle}">축제이름</h5>
                     <p>조회수 : <span class="festival-text" th:text="${post.contentViews}"></span></p>
                     <p>행사일 : <span class="festival-text" th:text="${post.festivalUploadDate}"></span></p>
 
-                    <a th:if="${session.member!=null}" th:href="@{|/festival/${post.postNum}|}" class="btn btn-primary">자세히보기</a>
+                    <a th:if="${session.authInfo!=null}" th:href="@{|/festival/${post.postNum}|}" class="btn btn-primary">자세히보기</a>
                 </div>
             </div>
         </div>

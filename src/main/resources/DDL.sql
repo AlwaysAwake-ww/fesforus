@@ -26,8 +26,9 @@ CREATE TABLE POSTS (
 	progress_state	number(1)		NULL,
 	festival_title	varchar2(1000)		NULL,
 	festival_upload_date	DATE		NULL,
-    CONSTRAINT adminIndex FOREIGN KEY(adminIndex) REFERENCES admin(adminIndex),
-    festivalCategory VARCHAR2(100),
+	festival_category VARCHAR2(100),
+    CONSTRAINT admin_index FOREIGN KEY(admin_index) REFERENCES admin(admin_index)
+
 );
 drop table Favorite;
 CREATE TABLE Favorite (
@@ -38,19 +39,10 @@ CREATE TABLE Favorite (
 );
 
 
-ALTER TABLE "Favorite" ADD CONSTRAINT "PK_FAVORITE" PRIMARY KEY (
-	"member_index",
-	"post_num"
+ALTER TABLE Favorite ADD CONSTRAINT PK_FAVORITE PRIMARY KEY (
+	member_index,
+	post_num
 );
-
-ALTER TABLE "Favorite" ADD CONSTRAINT "FK_MEMBER_TO_Favorite_1" FOREIGN KEY (
-	"member_index"
-);
-
-ALTER TABLE "Favorite" ADD CONSTRAINT "FK_POSTS_TO_Favorite_1" FOREIGN KEY (
-	"post_num"
-);
-
 
 
 drop table FESTIVAL_REVIEW;
@@ -60,7 +52,7 @@ CREATE TABLE FESTIVAL_REVIEW (
 	member_index VARCHAR2(30) NOT NULL,
 	review_text	varchar2(1000)   NOT	NULL,
 	review_score	number(1)		NOT NULL,
-    CONSTRAINT postNum FOREIGN KEY(postNum) REFERENCES POSTS(postNum) on delete cascade
+    CONSTRAINT post_num FOREIGN KEY(post_num) REFERENCES POSTS(post_num) on delete cascade
 
 );
 
@@ -102,15 +94,3 @@ CREATE TABLE CATEGORY(
     CONSTRAINT category_PK PRIMARY KEY(member_index, category_class),
     CONSTRAINT member_category_index FOREIGN KEY(member_index) REFERENCES member(member_index) on delete cascade
 );
-
-
-----추가
---DROP TABLE CONTACT;
---CREATE TABLE CONTACT (
---    contactIndex NUMBER(10) primary key,
---    contactName VARCHAR2(100),
---    contactEmail VARCHAR2(200),
-----    contact_number VARCHAR2(200),
---    contactText VARCHAR2(400)
---
---);

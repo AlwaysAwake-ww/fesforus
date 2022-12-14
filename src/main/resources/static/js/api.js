@@ -1,10 +1,9 @@
 //새로고침 했을 때 페이지 맨 위로
-window.onload = function() {
-    setTimeout (function() {
-    scrollTo(0,0);
-    },100);
-}
-
+// window.onload = function() {
+//     setTimeout (function() {
+//     scrollTo(0,0);
+//     },100);
+// }
 
 
 var address = document.getElementById("address");
@@ -25,6 +24,51 @@ mapOption = {
 var map = new daum.maps.Map(mapContainer, mapOption);
 
 var markers = [];
+
+
+mapInit();
+
+function mapInit() {
+
+  var geocoder = new kakao.maps.services.Geocoder();
+  var gap = address.value;
+
+  if (gap == "") {
+    alert("주소입력값 없음");
+    address.focus();
+    return;
+  }
+
+  geocoder.addressSearch(gap, function (result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+    if (status === kakao.maps.services.Status.OK) {
+
+      var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+      // 결과값으로 받은 위치를 마커로 표시합니다
+      var marker = new kakao.maps.Marker({
+        map: map,
+        position: coords
+      });
+
+      // 인포윈도우로 장소에 대한 설명을 표시합니다
+      var infowindow = new kakao.maps.InfoWindow({
+        content: '<div style="width:150px;text-align:center;padding:5px 0;">행사위치</div>' 
+      });
+      infowindow.open(map, marker);
+
+      // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+      map.setCenter(coords);
+    }
+  });
+
+
+};
+
+
+
+
 //편의시설 찾기
 function addressChk(categoryCode) {
   hideMarkers();
@@ -77,7 +121,7 @@ function addressChk(categoryCode) {
       if (status === kakao.maps.services.Status.OK) {
         for (var i = 0; i < data.length; i++) {
           displayMarker(data[i]);
-//          console.log(data[i]);
+          //          console.log(data[i]);
         }
       }
     }
@@ -99,8 +143,8 @@ function addressChk(categoryCode) {
           // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
           infowindow.setContent(
             '<div style="padding:5px;font-size:12px;">' +
-              place.place_name +
-              "</div>"
+            place.place_name +
+            "</div>"
           );
           infowindow.open(map, marker);
         });

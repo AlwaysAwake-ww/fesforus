@@ -49,6 +49,7 @@
                     <!-- 누르면 각 페이지 내의 각 부분으로 이동 -->
                     <a class="btn btn-primary  text-uppercase" href="#map">근처 편의시설</a>
                     <a class="btn btn-primary  text-uppercase" href="#review">축제후기</a>
+                    <a class="btn btn-primary  text-uppercase" href="javascript:history.back()">목록으로</a>
                     <!-- ==================================== -->
 
                     <hr style="border:1px solid black"/>
@@ -60,6 +61,8 @@
                 <!-- Preview image figure-->
                 <figure class="mb-4">
                     <img class="img-fluid rounded" th:src="@{/assets/img/image/}+${post.contentImage}"  alt="..." width="700px">
+
+
                 </figure>
                 <!-- Post content-->
                 <section class="mb-5">

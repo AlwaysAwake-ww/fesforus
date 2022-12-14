@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.persistence.criteria.Order;
 import java.util.ArrayList;
 import java.util.List;
-
+import static javax.persistence.GenerationType.AUTO;
 
 @Entity // 테이블과 링크 될 클래스
 @Table(name = "ADMIN")

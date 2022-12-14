@@ -1,102 +1,100 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:insert="/fragment/mainHead.html :: mainHead">
     <title>홈페이지</title>
 </head>
+
 <body id="page-top">
-<nav th:include="/fragment/mainBodyNav.html :: mainBodyNav" class="navbar navbar-expand-lg navbar-dark fixed-top"
-     id="mainNav">
-</nav>
-<header class="masthead">
+    <nav th:include="/fragment/mainBodyNav.html :: mainBodyNav" class="navbar navbar-expand-lg navbar-dark fixed-top"
+        id="mainNav">
+    </nav>
+    <header class="masthead">
+        <div class="container">
 
-</header>
-<!-- Page content-->
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-lg-8">
-            <!-- Post content-->
-            <article>
-                <!-- Post header-->
-                <header class="mb-4">
-                    <!-- Post title-->
-                    <h1 class="fw-bolder mb-1">공지사항</h1>
-                </header>
+            <div class="masthead-heading text-uppercase">공지사항</div>
+            <div class="masthead-subheading">새로운 소식을 확인하세요!</div>
 
-            </article>
         </div>
+    </header>
+    <div style="padding:10px"></div>
+
+    <!-- 공지사항 검색 -->
+    <form class="d-flex" role="search" action="/notice" method="GET" style="height:100px;">
+        <input class=" me-2" type="text" placeholder="" aria-label="Search" name="keyword" style="width:50%">
+
+        <button type="submit" class="btn btn-dark">검색</button>
+    </form>
+    <div style="padding:10px"></div>
+
+    <!-- 공지사항 리스트 -->
+    <div class="list-group" th:each="notice : ${notice}">
+        <a th:href="@{|/notice/${notice.postNum}|}" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1" th:text="${notice.postNum}">게시글 번호</h5>
+            </div>
+            <p class="mb-1" th:text="${notice.contentTitle}">게시글 제목</p>
+        </a>
     </div>
-</div>
-<!-- 공지사항 검색 -->
-<nav class="navbar bg-light">
-    <div class="container-fluid">
-        <form class="d-flex" role="search" action="/notice" method="GET" style="height:100px;">
-            <input class="form-control me-2" type="search" placeholder="내용입력" aria-label="Search" name="keyword">
-            <button type="submit" class="btn btn-dark">검색</button>
-        </form>
+
+    <!--페이징-->
+    <nav style="text-align: center;" name="Page-navigation" aria-label="Page navigation example"
+        th:with="start=${(notice.number/maxPage)*maxPage + 1},
+                  end=(${(notice.totalPages == 0) ? 1 : (start + (maxPage - 1) < notice.totalPages ? start + (maxPage - 1) : notice.totalPages)})">
+        <ul class="pagination">
+            <li th:if="${start > 1}" class="page-item">
+                <a th:href="@{/notice?(keyword=${keyword}, page=0)}" th:text="'처음으로 이동'" class="page-link"></a>
+            </li>
+            </li>
+
+            <li th:if="${start > 1}" class="page-item">
+                <a th:href="@{/notice?(keyword=${keyword}, page=${start - maxPage})}" th:text="'이전'"
+                    class="page-link"></a>
+            </li>
+
+
+            <li th:each="page: ${#numbers.sequence(start, end)}" class="page-item">
+                <a th:href="@{/notice?(keyword=${keyword}, page=${page-1})}" th:text="${page}" class="page-link"></a>
+            </li>
+            </li>
+
+            <li th:if="${end < notice.totalPages}" class="page-item">
+                <a th:href="@{/notice?(keyword=${keyword}, page=${start + maxPage})}" th:text="'다음'"
+                    class="page-link"></a>
+            </li>
+
+            <li th:if="${end < notice.totalPages}" class="page-item">
+                <a th:href="@{/notice?(keyword=${keyword}, page=${notice.totalPages-1})}" th:text="'마지막페이지로이동'"
+                    class="page-link"></a>
+            </li>
+        </ul>
+
+    </nav>
+
+    <!-- 사이드바 -->
+    <div th:include="/fragment/sideMenu.html :: sideMenu">
+
     </div>
-</nav>
-<!-- 공지사항 리스트 -->
-<div class="list-group" th:each="notice : ${notice}">
-    <a th:href="@{|/notice/${notice.postNum}|}" class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1" th:text="${notice.postNum}">게시글 번호</h5>
-        </div>
-        <p class="mb-1" th:text="${notice.contentTitle}">게시글 제목</p>
-    </a>
-</div>
+    <!-- 로그인 중일 때 모달창 -->
+    <div th:include="/fragment/modal.html :: loginModal-in" th:if="${session.authInfo != null}" class="modal fade"
+        id="login-Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-<!--페이징-->
-<nav style="text-align: center;" name="Page-navigation" aria-label="Page navigation example"
-     th:with="start=${(notice.number/maxPage)*maxPage + 1},
-                  end=(${(notice.totalPages == 0) ? 1 : (start + (maxPage - 1) < notice.totalPages ? start + (maxPage - 1) : notice.totalPages)})" >
-    <ul class="pagination">
-        <li th:if="${start > 1}" class="page-item">
-            <a th:href="@{/notice?(keyword=${keyword}, page=0)}" th:text="'처음으로 이동'" class="page-link"></a></li>
-        </li>
-
-        <li th:if="${start > 1}" class="page-item">
-            <a th:href="@{/notice?(keyword=${keyword}, page=${start - maxPage})}" th:text="'이전'" class="page-link"></a>
-        </li>
+    </div>
 
 
-        <li th:each="page: ${#numbers.sequence(start, end)}" class="page-item">
-            <a th:href="@{/notice?(keyword=${keyword}, page=${page-1})}" th:text="${page}" class="page-link"></a></li>
-        </li>
+    <!-- 로그인 중이 아닐때 모달 -->
+    <div th:include="/fragment/modal.html :: loginModal-out" th:if="${session.authInfo == null}" class="modal fade"
+        id="login-Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-        <li th:if="${end < notice.totalPages}" class="page-item">
-            <a th:href="@{/notice?(keyword=${keyword}, page=${start + maxPage})}" th:text="'다음'" class="page-link"></a>
-        </li>
-
-        <li th:if="${end < notice.totalPages}" class="page-item">
-            <a th:href="@{/notice?(keyword=${keyword}, page=${notice.totalPages-1})}" th:text="'마지막페이지로이동'" class="page-link"></a>
-        </li>
-    </ul>
-
-</nav>
-
-<!-- 사이드바 -->
-<div th:include="/fragment/sideMenu.html :: sideMenu">
-
-</div>
-<!-- 로그인 중일 때 모달창 -->
-<div th:include="/fragment/modal.html :: loginModal-in" th:if="${session.authInfo != null}" class="modal fade"
-     id="login-Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-</div>
+    </div>
 
 
-<!-- 로그인 중이 아닐때 모달 -->
-<div th:include="/fragment/modal.html :: loginModal-out" th:if="${session.authInfo == null}" class="modal fade"
-     id="login-Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-</div>
-
-
-<footer th:include="/fragment/mainFooter.html :: mainFooter" class="footer py-4">
-</footer>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="/js/scripts.js"></script>
+    <footer th:include="/fragment/mainFooter.html :: mainFooter" class="footer py-4">
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="/js/scripts.js"></script>
 </body>
+
 </html>

@@ -81,7 +81,6 @@ function loginClick() {
 function logoutClick() {
   Swal.fire({
     title: "로그아웃 하시겠습니까?",
-    text: "진짜루..?",
     showDenyButton: true,
     confirmButtonText: "확인",
     denyButtonText: `취소`,

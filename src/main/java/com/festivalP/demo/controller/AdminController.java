@@ -121,7 +121,8 @@ public class AdminController {
         String filename =uuid+"_"+pic.getOriginalFilename();
 
 
-        String uploadDir = "C:\\Users\\kitri\\Desktop\\project2\\src\\main\\resources\\static\\assets\\img\\image" + File.separator;
+//        String uploadDir = "C:\\Users\\kitri\\Desktop\\project2\\src\\main\\resources\\static\\assets\\img\\image" + File.separator;
+        String uploadDir = "D:\\project\\fesforus\\src\\main\\resources\\static\\assets\\img\\image" + File.separator;
 
 
         File uploadFolder = new File(uploadDir);
@@ -324,7 +325,8 @@ public class AdminController {
             // 랜덤 이름 생성
 
 
-            String uploadDir = "C:\\Users\\kitri\\Desktop\\project2\\src\\main\\resources\\static\\assets\\img\\image" + File.separator;
+//            String uploadDir = "C:\\Users\\kitri\\Desktop\\project2\\src\\main\\resources\\static\\assets\\img\\image" + File.separator;
+            String uploadDir = "D:\\project\\fesforus\\src\\main\\resources\\static\\assets\\img\\image" + File.separator;
 
 
 
@@ -346,7 +348,9 @@ public class AdminController {
 
             //delete
 
-            File file = new File("C:\\Users\\kitri\\Desktop\\project2\\src\\main\\resources\\static\\assets\\img\\image/" + srcFileName); // ex. [D:/test/image/testImage.jpg]
+//            File file = new File("C:\\Users\\kitri\\Desktop\\project2\\src\\main\\resources\\static\\assets\\img\\image/" + srcFileName); // ex. [D:/test/image/testImage.jpg]
+            File file = new File("D:\\project\\fesforus\\src\\main\\resources\\static\\assets\\img\\image" + srcFileName); // ex. [D:/test/image/testImage.jpg]
+
 
             System.out.println("## srcFileName ::" + srcFileName);
 

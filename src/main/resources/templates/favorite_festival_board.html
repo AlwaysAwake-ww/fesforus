@@ -12,7 +12,12 @@
 </nav>
 
 <header class="masthead">
+    <div class="container">
+        
+        <div class="masthead-heading text-uppercase">즐겨찾기</div>
+        <div class="masthead-subheading">원하는 축제만 따로 모아보세요</div>
 
+    </div>
 </header>
 <!-- 정렬방식 -->
 <form class="d-flex" action="/favoritefestival" method="GET" style="padding:5px">
@@ -21,7 +26,7 @@
     <input type="hidden" th:if="${session.member!=null}" th:value="0" id="session_exist_check">
     <input type="hidden" th:if="${session.member==null}" th:value="1" id="session_exist_check">
 
-    <input class=" me-2" id="keyword" type="text" placeholder="제목검색하시오" aria-label="Search"
+    <input class=" me-2" id="keyword" type="text" placeholder="" aria-label="Search"
            name="keyword" style="width:50%">
     <!-- ==================== -->
     <!--            <section id="theme">-->

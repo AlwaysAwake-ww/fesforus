@@ -54,7 +54,7 @@
     <li class="list-group-item d-flex justify-content-between align-items-start" th:each="post : ${posts}">
       <div class="ms-2 me-auto"  >
         <a class="fw-bold" th:text="${post.festivalTitle}" th:href="@{|/festival/${post.postNum}|}"></a>
-        <td >글번호=[[${post.postNum}]]</td>
+        <td > [[${post.postNum}]]</td>
       </div>
       <form action="festivalManagement" method="post">
 
