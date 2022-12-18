@@ -12903,12 +12903,7 @@ a {
     -webkit-transition: 1s ease-in-out left;
     -moz-transition: 1s e qase-in-out left;
     -o-transition: 1s ease-in-out left;
-    transition: 1s ease-in-out left;
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> 81d2a0e3cd2ac494f812d4707884e45fb1a923b6
+    transition: 1s ease-in-out left;    
 }
 
 
@@ -12919,3 +12914,5 @@ a {
 
   box-shadow: 5px, 5px, 5px;
 }
+
+
