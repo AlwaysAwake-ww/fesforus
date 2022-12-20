@@ -13,3 +13,7 @@
 확인할 수 있습니다.
 
 다른 사용자가 남긴 별점과 후기를 확인할 수 있습니다.
+
+
+
+![image](https://user-images.githubusercontent.com/32862865/208608721-690574b8-deed-4531-88ef-df3bab4f52cf.png)
