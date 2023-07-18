@@ -12,16 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Entity // 테이블과 링크 될 클래스
+@Entity
 @Table(name = "MEMBER")
 @Getter
 @Setter
 public class Member {
 
 
-    @Id // 해당 테이블의 PK 항목
-    @GeneratedValue // PK 생성 규칙
-    @Column(name="member_index")// 테이블의 칼럼,
+    @Id
+    @GeneratedValue
+    @Column(name="member_index")
     private Long memberIndex;
 
     @Column(name="member_id")
@@ -49,20 +49,5 @@ public class Member {
     private int memberState=1;
 
 
-
-//    private String memberId;
-//    private Long memberPw;
-//    private String memberBirth;
-//    private String memberAddr;
-//    private String memberEmail;
-//    private String memberNickname;
-//    private String memberState;
-//    private String memberCategory;
-
-
-
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "member")
-//    private List<Order> favorite = new ArrayList<>();
 
 }

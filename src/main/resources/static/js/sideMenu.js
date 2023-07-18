@@ -4,7 +4,6 @@
 
 
 $(document).ready(function(){
-    // var currentPosition = parseInt($(".quickmenu").css("top"));
     $(window).scroll(function() {
       
 

@@ -29,7 +29,6 @@ public class FavoriteRepository {
 
     public void delete(Favorite favorite){
 
-//        EntityTransaction transaction = em.getTransaction();
         FavoritePK favoritePK = new FavoritePK();
         favoritePK.setMemberIndex(favorite.getMemberIndex());
         favoritePK.setPostNum(favorite.getPostNum());
@@ -52,19 +51,6 @@ public class FavoriteRepository {
         }
     }
 
-//    public List<Posts> findFavoritePosts(Long memberIndex, Long postNum) {
-//        return em.createQuery("select p" +
-//                "                     from Favorite f, Posts p" +
-//                "                     where f.postNum = :postNum" +
-//                "                     and f.memberIndex = :memberIndex" +
-//                "                     and p.postNum = :postNum", Posts.class).setParameter("postNum", postNum).setParameter("memberIndex", memberIndex)
-//                .getResultList();
-//    }
-
-//    public List<Posts> findFavoritePosts(Long memberIndex) {
-//        return em.createQuery("select p from Posts p, (select postNum from Favorite f where f.memberIndex = :memberIndex) a where p.postNum = a.postNum", Posts.class).setParameter("memberIndex", memberIndex)
-//                .getResultList();
-//    }
 
 
     public List<Posts> findFavoritePosts(Long memberIndex) {

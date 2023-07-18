@@ -19,9 +19,6 @@ public class ChatService {
     private final ObjectMapper objectMapper;
 
 
-    // RoomId를 Key, ChatRoom을 Value로 가지고 있음
-    // CreateRoom 메소드 실행 시, 새로 방 만들어지고 ChatRooms 맵에 chatRoom 추가
-    
     private Map<String, ChatRoom> chatRooms;
 
     @PostConstruct
@@ -39,7 +36,6 @@ public class ChatService {
 
     public ChatRoom createRoom(String name) {
         
-        // 방의 아이디는 UUID로 랜덤 생성
         String randomId = UUID.randomUUID().toString();
         ChatRoom chatRoom = ChatRoom.builder()
                 .roomId(randomId)
@@ -50,8 +46,6 @@ public class ChatService {
     }
 
     public <T> void sendMessage(WebSocketSession session, T message) {
-        // sendMessage 메소드는 TALK 상태일 때 실행되는 메서드
-        // 메세지를 해당 chatRoom의 webSocket 세션에 보내는 메서드
 
         try{
             session.sendMessage(new TextMessage(objectMapper.writeValueAsString(message)));

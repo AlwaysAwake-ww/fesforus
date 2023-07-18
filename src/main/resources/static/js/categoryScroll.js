@@ -1,5 +1,4 @@
 var pageNum = 1;
-//새로고침 했을 때 페이지 맨 위로
 window.onload = function() {
     setTimeout (function() {
     scrollTo(0,0);
@@ -19,24 +18,20 @@ $(window).scroll(function() {
     let direction_val = $('#direction_val').val();
     console.log(direction_val);
 
-//    console.log(sort_val);
-	//bottom에 왔을 때 ajax로 다음 데이터 받아오기
 		$.ajax({
             type: 'POST',
             url: "/categoryfestival/scroll",
             data: {
-            page: pageNum, // current Page
+            page: pageNum,
             keyword: keyword_val,
             sort: sort_val,
             direction: direction_val
-//            size: 6, // max page size(수정해야함)
             },
           dataType: 'text'
         }).done(function (result) {
             pageNum++;
             let json =  JSON.parse(result);
             console.log(json.content);
-//            console.log(json.content[0]);
             if(json.content.length > 0 ){
             var str = '';
             $.each(json.content , function(i) {

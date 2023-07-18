@@ -21,7 +21,7 @@ public class Review {
     private Long postNum;
 
     @Column(name="member_index")
-    private String memberIndex; //작성자 닉네임
+    private String memberIndex;
 
     @Column(name="review_text")
     private String reviewText;

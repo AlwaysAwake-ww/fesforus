@@ -1,4 +1,3 @@
-//정렬 클릭한 값으로 텍스트 바뀌는 함수
 function onClickSelect(e) {
         const isActive = e.currentTarget.className.indexOf("active") !== -1;
         if (isActive) {
@@ -20,5 +19,3 @@ function onClickSelect(e) {
         var option = optionList[i];
         option.addEventListener("click", onClickOption);
       }
-
-//

@@ -24,8 +24,6 @@ public interface FavoritePageRepository extends PagingAndSortingRepository<Posts
     @Query("select p from Posts p JOIN FETCH Favorite f on p.postNum = f.postNum where f.memberIndex = :memberIndex")
     Page<Posts> findByMemberIndex(@Param("memberIndex") Long memberIndex, Pageable pageable);
 
-//    @Query("select p from Posts p JOIN FETCH Favorite f on p.postNum = f.postNum where f.memberIndex = :memberIndex and p.festivalTitle like %:keyword%")
-//    Page<Posts> findByFestivalTitle(@Param("memberIndex") Long memberIndex, @Param("keyword") String keyword, Pageable pageable);
 
     @Query("select p from Posts p JOIN FETCH Favorite f on p.postNum = f.postNum where f.memberIndex = :memberIndex and p.festivalTitle like %:keyword% ")
     Page<Posts> findByFestivalTitle(@Param("memberIndex") Long memberIndex, @Param("keyword") String keyword, Pageable pageable);
@@ -36,10 +34,8 @@ public interface FavoritePageRepository extends PagingAndSortingRepository<Posts
 
 
     @Query("select p from Posts p JOIN FETCH Favorite f on p.postNum = f.postNum and f.memberIndex = :memberIndex order by p.festivalUploadDate desc")
-        //최신 순
     Page<Posts> findAllByOrderByFestivalUploadDateDesc(@Param("memberIndex") Long memberIndex, Pageable pageable);
 
-    //조회수 순
     @Query("select p from Posts p JOIN FETCH Favorite f on p.postNum = f.postNum and f.memberIndex = :memberIndex order by p.contentViews")
 
     Page<Posts> findAllByOrderByContentViewsDesc(@Param("memberIndex") Long memberIndex, Pageable pageable);

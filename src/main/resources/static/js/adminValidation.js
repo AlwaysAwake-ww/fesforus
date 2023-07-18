@@ -1,6 +1,5 @@
 
 
-// DOM 으로 컴포넌트 받아오기
 const id = document.getElementById("id");
 const id_dup_check = document.getElementById("id_dup_check");
 const id_valid_text = document.getElementById("id_valid_text");
@@ -15,7 +14,6 @@ const signupForm = document.signupForm;
 
 
 
-// 유효성 검사를 위한 정규식 패턴
 const id_pattern = /^[a-zA-Z][0-9a-zA-Z]{4,8}$/;
 const pw_pattern = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
 
@@ -24,7 +22,6 @@ const forms = document.getElementsByClassName('validation-form');
 
 
 
-// Valid 메세지
 function validTextChange(flag, validObject, text) {
 
 
@@ -43,10 +40,6 @@ function validTextChange(flag, validObject, text) {
 }
 
 
-//////////////////////////////////////////////////////////////////////
-// ID 유효성검사 로직
-
-
 id.addEventListener("input", () => {
 
     id.classList.remove('valid');
@@ -57,14 +50,12 @@ id.addEventListener("input", () => {
 
 });
 
-// ID 중복 체크 이벤트 리스너
 id_dup_check.addEventListener('click', function (event) {
 
 
     pattern_check = false;
     dup_check = false;
 
-    // Ajax POST 로 ID 중복체크
     $.ajax({
         url: "/admin/iddupcheck",
         async: true,
@@ -73,7 +64,6 @@ id_dup_check.addEventListener('click', function (event) {
         dataType: "text"
     })
         .done(function (text) {
-            // Ajax 통신 성공했을 경우
 
             console.log("AJAX SUCCESS");
             dup_check = true;
@@ -135,15 +125,12 @@ id_dup_check.addEventListener('click', function (event) {
         })
 
         .fail(function (xhr, status, errorThrown) {
-            // alert("아이디 사용 불가능");
             console.log("AJAX FAIL");
             console.log("code:" + xhr.status + "\n" + "message:" + xhr.responseText + "\n" + "error:" + errorThrown);
-            // 실패했을 경우
         })
 });
 
-//////////////////////////////////////////////////////////////////////////
-// PW 유효성 검사 로직
+
 password.addEventListener("input", () => {
 
     if (password_check.value == password.value) {
@@ -169,8 +156,7 @@ password.addEventListener("input", () => {
 
 
 
-//////////////////////////////////////////////////////////////////////////
-// PW check 유효성 검사 로직
+
 
 password_check.addEventListener("keyup", () => {
     if (password_check.value == password.value) {
@@ -201,8 +187,6 @@ password_check.addEventListener("keydown", () => {
 
 
 
-///////////////////////////////////////////////////
-// submit 정의
 
 let validFlag = false;
 
@@ -210,14 +194,11 @@ function validCheck() {
 
     validCnt = document.getElementsByClassName("valid");
 
-    // valid 개수 카운팅 후 flag
 
     if (validCnt.length >= 2) {
-        // valid 개수 맞으면
         validFlag = true;
     }
     else {
-        // valid 개수 적으면
         validFlag = false;
     }
 }
@@ -247,7 +228,6 @@ submitBtn.addEventListener("click", (event) => {
     }
     else {
 
-        // 완성 후 지우기
         Swal.fire({
             icon: 'error',
             title: '회원가입 실패',

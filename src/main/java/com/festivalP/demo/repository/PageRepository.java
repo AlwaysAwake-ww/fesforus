@@ -31,13 +31,10 @@ public interface PageRepository extends PagingAndSortingRepository<Posts, Long>{
 
 
 
-    //오래된 순
     Page<Posts> findAllByOrderByFestivalUploadDate(Pageable pageable);
 
-    //최신 순
     Page<Posts> findAllByOrderByFestivalUploadDateDesc(Pageable pageable);
 
-    //조회수 순
     Page<Posts> findAllByOrderByContentViewsDesc(Pageable pageable);
 
     @Modifying

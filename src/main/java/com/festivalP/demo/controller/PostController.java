@@ -1,22 +1,17 @@
 package com.festivalP.demo.controller;
 
-//import com.festivalP.demo.domain.Contact;
-import com.festivalP.demo.domain.Contact;
 import com.festivalP.demo.domain.Member;
 import com.festivalP.demo.domain.Posts;
 import com.festivalP.demo.domain.Review;
 import com.festivalP.demo.form.PostForm;
 import com.festivalP.demo.service.FavoriteService;
 import com.festivalP.demo.service.FestivalService;
-//import com.festivalP.demo.service.MailService;
-//import com.festivalP.demo.service.MailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +30,6 @@ public class PostController {
     private final FavoriteService favoriteService;
 
 
-    //전체 축제리스트 불러오는 부분
     @GetMapping("/allfestival")
     public String list(Model model, @PageableDefault(size =6,page=0, sort="contentViews", direction = Sort.Direction.DESC) Pageable pageable,String keyword) {
 
@@ -57,7 +51,6 @@ public class PostController {
         return "every_festival_board";
     }
 
-    //페이지 ajax
     @PostMapping("/allfestival/scroll")
     @ResponseBody
     public Page<Posts> list(Model model, String keyword, @PageableDefault(size =6,page=0,direction = Sort.Direction.DESC) Pageable pageable ,@RequestParam String direction,String sort) {
@@ -79,7 +72,6 @@ public class PostController {
         return festivals;
     }
 
-    //각 축제별 정보와 리뷰리스트 불러오는 부분
     @GetMapping("/festival/{postNum}")
     public String list(Model model, @PathVariable("postNum") Long postNum, HttpServletRequest request) {
         List<Posts> post = festivalService.findOne(postNum);
@@ -115,7 +107,6 @@ public class PostController {
         return "Each_Festival_board";
     }
 
-    //후기 제출했을 때 데이터 저장되는 부분
     @PostMapping("/festival/review")
     @ResponseBody
     public HashMap<String, Object> Review(@RequestBody Review data) {
@@ -125,13 +116,11 @@ public class PostController {
 
 
 
-    //지역별 축제
     @GetMapping("/localFestival")
     public String local() {
         return "Local_Festival_board";
     }
 
-    //지역주소 받아오고 지역별 축제 보여주기
     @PostMapping("/local")
     @ResponseBody
     public List local_Addr(Long local) {

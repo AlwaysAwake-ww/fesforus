@@ -20,7 +20,6 @@ import java.util.List;
 
 
 @Service
-//@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class FestivalService{
 
@@ -45,15 +44,11 @@ public class FestivalService{
     }
 
 
-    //조회수 증가
     @Transactional
     public int updateView(Long postNum) {
-        System.out.println("festivalService updateView!!");
-//        System.out.println(pageRepository.updateView(postNum));
         return pageRepository.updateView(postNum);
     }
 
-    //@Transactional(readOnly = true)
     public  Page<Posts> paging(String keyword, Pageable pageable) {
         Page<Posts> Pages= pageRepository.findByFestivalTitleContaining(keyword, pageable);
         return Pages;
@@ -64,25 +59,21 @@ public class FestivalService{
         return Pages;
     }
 
-    //페이징과 키워드 동시에
     public Page<Posts> pagingView(String keyword,Pageable pageable) {
         Page<Posts> Pages = pageRepository.findByFestivalTitleContaining(keyword,pageable);
         Pages = sortView(pageable);
         return Pages;
     }
 
-    //오래된 순
     public Page<Posts> sortOld(Pageable pageable) {
         Page<Posts> Pages = pageRepository.findAllByOrderByFestivalUploadDate(pageable);
         return Pages;
     }
-    //최신 순
     public Page<Posts> sortNew(Pageable pageable) {
         Page<Posts> Pages = pageRepository.findAllByOrderByFestivalUploadDateDesc(pageable);
         return Pages;
     }
 
-    //조회수 순
     public Page<Posts> sortView(Pageable pageable) {
         Page<Posts> Pages = pageRepository.findAllByOrderByContentViewsDesc(pageable);
 
@@ -97,16 +88,13 @@ public class FestivalService{
         return reviewRepository.findReviewBypostNum(postNum);
     }
 
-    //지역별축제기능
     public List<Posts> findOne2(Long local){ return festivalRepository.findByboardLocAddr(local);}
 
-    //홈페이지 조회수 많은축제 탑3
     public List<Posts> sort3ViewFestivals() {
         List<Posts> posts = festivalRepository.findOneOrderByFestival_contentViews();
         return posts;
     }
 
-    //홈페이지 새로운축제 탑3
     public List<Posts> sort3NewFestivals() {
         List<Posts> date = festivalRepository.findOndOrderByUpload_Date();
         return date;
@@ -124,7 +112,6 @@ public class FestivalService{
 
 
 
-    //검색기능
     @Transactional
     public List<Posts> searchPosts(String keyword) {
         List<Posts> posts = festivalRepository.findByfestivalTitle(keyword);

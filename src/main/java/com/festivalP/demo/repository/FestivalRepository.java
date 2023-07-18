@@ -64,7 +64,6 @@ public class FestivalRepository {
     }
 
 
-//    제목 검색할 때 필요
     public List<Posts> findByfestivalTitle(String keyword) {
 
         return em.createQuery("select p from Posts p where p.festivalTitle LIKE concat('%',:keyword,'%')",Posts.class).setParameter("keyword",keyword).getResultList();
@@ -76,20 +75,17 @@ public class FestivalRepository {
         return em.find(Posts.class, postNum);
     }
 
-    //지역별로 데이터찾기
     public List<Posts> findByboardLocAddr(Long local) {
         return em.createQuery("select p from Posts p where p.boardLocAddr LIKE :boardLocAddr", Posts.class).setParameter("boardLocAddr",local).getResultList();
     }
 
 
 
-    //많이 찾는 축제찾기
     public List<Posts> findOneOrderByFestival_contentViews() {
        return em.createQuery("select p from Posts p order by p.contentViews desc", Posts.class).setFirstResult(0).setMaxResults(3).getResultList();
     }
 
 
-    //새로운 축제찾기
     public List<Posts> findOndOrderByUpload_Date() {
         return em.createQuery("select p from Posts p order by p.festivalUploadDate desc", Posts.class).setFirstResult(0).setMaxResults(3).getResultList();
     }

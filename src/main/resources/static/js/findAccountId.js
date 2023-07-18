@@ -11,7 +11,6 @@ const email_pattern = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9
 
 
 
-// Valid 메세지
 function validTextChange(flag, validObject, text) {
 
 
@@ -30,8 +29,6 @@ function validTextChange(flag, validObject, text) {
 };
 
 
-////////////////////////////////////////////////////
-/// 이메일 중복
 
 
 email_auth_btn.addEventListener('click', () => {
@@ -51,7 +48,6 @@ email_auth_btn.addEventListener('click', () => {
     })
 
         .done(function (text) {
-            // Ajax 통신 성공했을 경우
 
             console.log(text);
             console.log("AJAX SUCCESS");
@@ -146,8 +142,6 @@ email_auth_btn.addEventListener('click', () => {
 });
 
 
-////////////////////////////////////////
-// 이메일 유효성검사
 
 email.addEventListener("input", () => {
 
@@ -171,9 +165,6 @@ email.addEventListener("input", () => {
 
 
 
-/////////////////////////////////////////////
-// 이메일 인증 버튼 클릭
-
 email_auth_submit_btn.addEventListener('click', () => {
 
     var email = $('#email').val();
@@ -190,7 +181,6 @@ email_auth_submit_btn.addEventListener('click', () => {
     })
         .done(function (text) {
             if (text == 'F') {
-                // 실패
                 Swal.fire({
                     icon: 'error',
                     title: '인증번호가 틀립니다.',
@@ -201,8 +191,7 @@ email_auth_submit_btn.addEventListener('click', () => {
 
             }
             else {
-                // 성공
-                
+
                 Swal.fire({
                     title: '인증에 성공했습니다.',
                     text: '가입하신 아이디는 "'+text+'" 입니다.',

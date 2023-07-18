@@ -25,13 +25,13 @@ public class FestivalForm {
 
     private Long reviewScoreAvg ;
 
-    private String boardAddr; //주소
+    private String boardAddr;
 
-    private Long boardLocAddr; //지역주소
+    private Long boardLocAddr;
 
     private String contentImage;
 
-    private String progressState; //진행상태
+    private String progressState;
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")

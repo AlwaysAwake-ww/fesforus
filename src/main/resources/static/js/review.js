@@ -1,9 +1,8 @@
 const submitBtn = document.querySelector('#review_submit');
 
 
-//리뷰 등록버튼 눌렀을 때
 submitBtn.addEventListener('click' , (e) => {
-    e.preventDefault(); //기본 폼 동작 막기
+    e.preventDefault();
     var reviewScore = $("#reviewScore").val();
     var reviewText = $("#reviewText").val();
     var postNum = $("#postNum").val();
@@ -11,7 +10,6 @@ submitBtn.addEventListener('click' , (e) => {
     var memberIndex = $("#memberIndex").val();
 
 
-//    if(review_score>5 || review_score<0 || !review_score) {
 
 
     if(reviewScore>5 || reviewScore<1 || !reviewScore) {
@@ -35,7 +33,6 @@ submitBtn.addEventListener('click' , (e) => {
             });
             alert('리뷰가 정상적으로 등록되었습니다');
             var str = '<tr>';
-//                  str += '<td>' +  reviewData.reviewScore + '</td><td>' + reviewData.reviewText +'</td><td>' + reviewData.memberIndex+'</td></tr>';
                     str += '<td>' +reviewData.star+ '</td><td>' + reviewData.reviewText +'</td><td>' + reviewData.memberIndex+'</td></tr>';
                   $("#reviewList").append(str);
 
@@ -43,7 +40,6 @@ submitBtn.addEventListener('click' , (e) => {
             alert(err);
         }
     }
-//    $("#reviewScore").val("===선택===");
     console.log($("#reviewScore").val());
     $("#reviewText").val('');
 

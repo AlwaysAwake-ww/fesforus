@@ -14,7 +14,6 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-//@IdClass(FavoritePK.class)
 public class ChatRoom {
 
     @Id

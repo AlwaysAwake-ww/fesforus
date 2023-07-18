@@ -46,7 +46,6 @@ public class MemberService {
 
 
     public Page<Member> paging(String keyword, Pageable pageable) {
-        // Page<Posts> Pages= pageRepository.findAll(pageable);
         return pageMemberRepository.findByMemberIdContaining(keyword, pageable);
     }
 
@@ -71,7 +70,6 @@ public class MemberService {
 
     @Transactional
     public String join(Member member){
-        System.out.println("MemberService.join");
         memberRepository.save(encryptFunc(member));
         if(member.getMemberCategory()!="")
             memberRepository.saveCategory(member);
@@ -83,13 +81,9 @@ public class MemberService {
     public boolean validateDuplicateMemberId(String memberId){
         List<Member> findMem = memberRepository.findById(memberId);
         if(!findMem.isEmpty()) {
-            // 중복된 ID 있을 경우
-            System.out.println("@@@@@@@ duplicate! @@@@");
             return false;
         }
         else{
-            // 중복된 ID 없을 경우
-            System.out.println("$$$$$$$$ no id in db$$$$$$$$$$");
             return true;
         }
     }
@@ -98,13 +92,9 @@ public class MemberService {
     public boolean validateDuplicateMemberNickname(String memberNickname){
         List<Member> findMem = memberRepository.findByNickname(memberNickname);
         if(!findMem.isEmpty()) {
-            // 중복된 ID 있을 경우
-            System.out.println("@@@@@@@ duplicate! @@@@");
             return false;
         }
         else{
-            // 중복된 닉네임 없을 경우
-            System.out.println("$$$$$$$$ no nickname in db$$$$$$$$$$");
             return true;
         }
     }
@@ -114,13 +104,9 @@ public class MemberService {
         List<Member> findMem = memberRepository.findByEmail(memberEmail);
 
         if(!findMem.isEmpty()) {
-            // 중복된 email 있을 경우
-            System.out.println("@@@@@@@ email duplicate! @@@@");
             return false;
         }
         else{
-            // 중복된 email 없을 경우
-            System.out.println("$$$$$$$$ no email in db$$$$$$$$$$");
             return true;
         }
     }
@@ -162,7 +148,6 @@ public class MemberService {
         List<Member> findMem =memberRepository.findById(memberId);
         Member mem = findMem.get(0);
 
-//        Member mem = memberRepository.findById(memberId);
         AuthInfo authInfo = new AuthInfo();
         authInfo.setId(memberId);
         authInfo.setState(mem.getMemberState());
@@ -202,10 +187,4 @@ public class MemberService {
         return member;
     }
 
-
-
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        return null;
-//    }
 }

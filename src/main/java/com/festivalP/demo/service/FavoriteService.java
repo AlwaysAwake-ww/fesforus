@@ -56,15 +56,12 @@ public class FavoriteService {
     @Transactional
     public Page<Posts> paging(Long memberId,String keyword, Pageable pageable) {
         Page<Posts> Pages= favoritePageRepository.findByFestivalTitle(memberId ,keyword, pageable);
-        System.out.println("@#@#@#@#@#@ FavoriteService paging");
         return Pages;
     }
 
     @Transactional
     public  Page<Posts> paging2(Long memberId, Pageable pageable) {
-        System.out.println("????? member ID ???: "+memberId);
         Page<Posts> Pages= favoritePageRepository.findByMemberIndex(memberId, pageable);
-        System.out.println("@#@#@#@#@#@ FavoriteService paging22");
         return Pages;
     }
 
@@ -72,13 +69,11 @@ public class FavoriteService {
         Page<Posts> Pages = favoritePageRepository.findAllByOrderByFestivalUploadDate(memberIndex, pageable);
         return Pages;
     }
-    //최신 순
     public Page<Posts> sortNew(Long memberIndex, Pageable pageable) {
         Page<Posts> Pages = favoritePageRepository.findAllByOrderByFestivalUploadDateDesc(memberIndex, pageable);
         return Pages;
     }
 
-    //조회수 순
     public Page<Posts> sortView(Long memberIndex, Pageable pageable) {
         Page<Posts> Pages = favoritePageRepository.findAllByOrderByContentViewsDesc(memberIndex, pageable);
 

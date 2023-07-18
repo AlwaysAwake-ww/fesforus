@@ -25,26 +25,20 @@ public class CategoryService {
     public Page<Posts> paging(Long memberId,String keyword, Pageable pageable) {
 
         Page<Posts> Pages= categoryPageRepository.findByFestivalTitle(memberId ,keyword, pageable);
-        System.out.println("@#@#@#@#@#@ CategoryService paging");
 
         return Pages;
     }
 
     @Transactional
     public  Page<Posts> paging2(String favorite, Pageable pageable) {
-        System.out.println("????? member Category ???: "+favorite);
 
         Page<Posts> Pages= categoryPageRepository.findByFavorite(favorite, pageable);
-
-        System.out.println("@#@#@#@#@#@ CategoryService paging22");
         return Pages;
     }
 
     @Transactional
     public Page<Posts> listPaging(Long memberIndex, Pageable pageable) {
-        System.out.println("????? memberIndex ???: "+memberIndex);
         Page<Posts> Pages= categoryPageRepository.findByFavoriteCategory(memberIndex, pageable);
-        System.out.println("@#@#@#@#@#@ CategoryService listPaging");
         return Pages;
     }
 
@@ -57,13 +51,11 @@ public class CategoryService {
         Page<Posts> Pages = categoryPageRepository.findAllByOrderByFestivalUploadDate(memberIndex, pageable);
         return Pages;
     }
-    //최신 순
     public Page<Posts> sortNew(Long memberIndex, Pageable pageable) {
         Page<Posts> Pages = categoryPageRepository.findAllByOrderByFestivalUploadDateDesc(memberIndex, pageable);
         return Pages;
     }
 
-    //조회수 순
     public Page<Posts> sortView(Long memberIndex, Pageable pageable) {
         Page<Posts> Pages = categoryPageRepository.findAllByOrderByContentViewsDesc(memberIndex, pageable);
 

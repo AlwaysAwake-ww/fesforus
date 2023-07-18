@@ -33,7 +33,6 @@ public class AdminService {
 
     @Transactional
     public String join(Admin admin){
-        System.out.println("AdminService.join");
         adminRepository.save(encryptFunc(admin));
         return admin.getAdminId();
     }
@@ -42,13 +41,9 @@ public class AdminService {
     public boolean validateDuplicateAdminId(String adminId){
         Admin admin = adminRepository.findById(adminId);
         if(admin!=null) {
-            // 중복된 ID 있을 경우
-            System.out.println("@@@@@@@ duplicate! @@@@");
             return false;
         }
         else{
-            // 중복된 ID 없을 경우
-            System.out.println("$$$$$$$$ no id in db$$$$$$$$$$");
             return true;
         }
     }

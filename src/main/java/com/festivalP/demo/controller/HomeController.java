@@ -23,7 +23,6 @@ public class HomeController {
     private final NoticeService noticeService;
 
 
-    //가장 많이 찾는 축제, 최근공지 모달
     @GetMapping("/")
     public String home(Model model) {
         List<Posts> topThree = festivalService.sort3ViewFestivals();
@@ -40,7 +39,6 @@ public class HomeController {
     @PostMapping ("/noticerefresh")
     public List<Notice> noticerefresh(HttpSession session){
 
-        System.out.println("sdfasdfsadfasdfsadf@!");
 
         List<Notice> notice = noticeService.NewNotice();
         return notice;

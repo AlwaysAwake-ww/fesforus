@@ -1,4 +1,3 @@
-//새로고침 했을 때 페이지 맨 위로
 window.onload = function() {
     setTimeout (function() {
     scrollTo(0,0);
@@ -23,9 +22,7 @@ function localChk(local) {
                 str += '<td>' + locList[i].boardAddr + '</td><td>' + locList[i].festivalTitle + '</td><td>' + locList[i].festivalUploadDate + '</td></tr>';
             });
             $("#boardList").append(str);
-//            console.log("data : "+data);
 
-//            alert('성공');
 
         }, error: function() {
             alert('실패');

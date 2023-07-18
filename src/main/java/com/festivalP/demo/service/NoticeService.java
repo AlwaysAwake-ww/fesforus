@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-//@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class NoticeService {
 
@@ -36,7 +35,6 @@ public class NoticeService {
     }
 
     public Page<Notice> paging(String keyword, Pageable pageable) {
-        // Page<Posts> Pages= pageRepository.findAll(pageable);
         return pageNoticeRepository.findByContentTitleContaining(keyword, pageable);
     }
 
@@ -50,18 +48,8 @@ public class NoticeService {
         return noticeRepository.findBypostNum(postNum);
     }
 
-    //검색
-//    @Transactional
-//    public List<Notice> searchNotice(String keyword) {
-//        List<Notice> notices = pageNoticeRepository.findByContentTitleContaining(keyword);
-//        if(keyword.isEmpty()) return findNotice();
-//        else {
-//            return notices;
-//        }
-//
-//    }
 
-    //최근공지
+
     public List<Notice> NewNotice() {
 
 

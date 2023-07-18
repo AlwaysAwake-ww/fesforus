@@ -10,16 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 import static javax.persistence.GenerationType.AUTO;
 
-@Entity // 테이블과 링크 될 클래스
+@Entity
 @Table(name = "ADMIN")
 @Getter
 @Setter
 public class Admin {
 
 
-    @Id // 해당 테이블의 PK 항목
-    @GeneratedValue // PK 생성 규칙
-    @Column (name="admin_index")// 테이블의 칼럼,
+    @Id
+    @GeneratedValue
+    @Column (name="admin_index")
     private Long adminIndex;
     
     @Column (name="admin_id")

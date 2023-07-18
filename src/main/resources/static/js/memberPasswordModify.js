@@ -7,7 +7,6 @@ const pw_pattern = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{
 
 
 
-// Valid 메세지
 function validTextChange(flag, validObject, text) {
 
 
@@ -26,8 +25,6 @@ function validTextChange(flag, validObject, text) {
 }
 
 
-//////////////////////////////////////////////////////////////////////////
-// PW 유효성 검사 로직
 password.addEventListener("input", () => {
 
     if (password_check.value == password.value) {
@@ -50,11 +47,6 @@ password.addEventListener("input", () => {
 
     }
 });
-
-
-
-//////////////////////////////////////////////////////////////////////////
-// PW check 유효성 검사 로직
 
 password_check.addEventListener("keyup", () => {
     if (password_check.value == password.value) {
@@ -84,29 +76,20 @@ password_check.addEventListener("keydown", () => {
 
 
 
-///////////////////////////////////////////////////////
-// valid 개수 카운트
-
 var validFlag = false;
 
 function validCheck() {
 
     validCnt = document.getElementsByClassName("valid");
 
-    // valid 개수 카운팅 후 flag
 
     if (validCnt.length >= 2) {
-        // valid 개수 맞으면
         validFlag = true;
     }
     else {
-        // valid 개수 적으면
         validFlag = false;
     }
 }
-
-//////////////////////////////////////////////////////////
-// 저장버튼
 
 modify_btn.addEventListener('click', ()=>{
 

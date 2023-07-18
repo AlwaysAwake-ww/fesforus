@@ -13,25 +13,20 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 
-// 롬복 사용하여 생성자 의존성 주입
 public class MemberRepository {
 
     private final EntityManager em;
 
 
     public void save(Member member) {
-        // JPA에서 save 함수는 매개변수를 insert 해주는 동작
-        System.out.println("MemberRepository.save");
         em.persist(member);
     }
 
     public void saveCategory(Member member) {
-        System.out.println("MemberRepository.saveCategory");
 
         String[] categoryClassList = member.getMemberCategory().split(",");
 
         for(String s : categoryClassList){
-            System.out.println("## categoryClassList :: "+ s);
             Category category = new Category();
             category.setMemberIndex(member.getMemberIndex());
             category.setCategoryClass(s);
@@ -94,7 +89,6 @@ public class MemberRepository {
         resMember.setMemberAddr(member.getMemberAddr());
         resMember.setMemberCategory(member.getMemberCategory());
 
-        System.out.println("#$#### memberInfoUpdate complete!!");
         return resMember;
     }
 
@@ -104,7 +98,6 @@ public class MemberRepository {
 
         resMember.setMemberPw(newPw);
 
-        System.out.println("#$#### memberPasswordUpdate complete!!");
         return resMember;
     }
 
@@ -127,7 +120,6 @@ public class MemberRepository {
 
         Member resMem = em.find(Member.class, memberIndex);
         resMem.setMemberPw(newPw);
-        System.out.println("## set memberPw to tempPw ##");
     }
 
 

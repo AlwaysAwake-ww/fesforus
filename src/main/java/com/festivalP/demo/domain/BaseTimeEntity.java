@@ -25,10 +25,5 @@ public class BaseTimeEntity {
     @LastModifiedDate
     private LocalDateTime modifiedDate;
 
-//    @CreatedBy
-//    @Column(updatable = false)
-//    private String createdBy;
-//
-//    @LastModifiedBy
-//    private String modifiedBy;
+
 }

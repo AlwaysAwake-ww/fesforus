@@ -11,7 +11,6 @@ favorite_add_btn.addEventListener('change', () => {
     var member_index = document.getElementById("member_index_value");
 
 
-//    alert(post_num+", "+member_index);
     console.log(document.getElementById("review_post_num").value);
     console.log(document.getElementById("member_index_value").value);
     if (member_index == null)
@@ -29,16 +28,13 @@ favorite_add_btn.addEventListener('change', () => {
         .done(function (text) { 
 
             if(text=='S'){
-                // favorite_add_btn.classList.add("btn-primary");
-                // favorite_add_btn.classList.remove("btn-secondary");
+
                 favorite_add_btn.checked = true;
 
             }
 
             else if(text=='E'){
 
-                // favorite_add_btn.classList.add("btn-secondary");
-                // favorite_add_btn.classList.remove("btn-primary");
                 favorite_add_btn.checked = false;
             }
             else{

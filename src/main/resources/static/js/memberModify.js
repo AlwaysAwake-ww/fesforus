@@ -43,9 +43,6 @@ var cnt = 0;
 category_check();
 
 
-//////////////////////////////////////////////////////
-// 닉네임
-
 nickname_dup_check.addEventListener("click", () => {
 
 
@@ -139,10 +136,6 @@ nickname_modify_btn.addEventListener('click', () => {
     nickname.value=null;
 });
 
-//////////////////////////////////////////////////
-
-//////////////////////////////////////////////////
-//// 주소
 
 detailAddress.addEventListener('input', ()=>{
 
@@ -165,10 +158,8 @@ addr_modify_btn.addEventListener('click', () => {
     memberAddr.value = address.value + " " + detailAddress.value;
     addr_modify_btn.disabled = true;
 });
-/////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////
-/// 생년월일
+
 
 birth.addEventListener('input',()=>{
 
@@ -182,8 +173,6 @@ birth_modify_btn.addEventListener('click', ()=>{
     birth.value=null;
 });
 
-////////////////////////////////////////////////////////
-// 이메일
 
 email.addEventListener("input", () => {
 
@@ -262,8 +251,7 @@ email_auth_submit_btn.addEventListener('click', ()=>{
     })
     .done(function(text){
         if(text=='S'){
-            // 성공
-            
+
             Swal.fire({
                 title: '인증에 성공했습니다.',
                 confirmButtonText: '확인',
@@ -279,7 +267,6 @@ email_auth_submit_btn.addEventListener('click', ()=>{
 
         }
         else{
-            // 실패
             Swal.fire({
                 icon: 'error',
                 title: '인증번호가 틀립니다.',
@@ -306,8 +293,7 @@ email_modify_btn.addEventListener('click',()=>{
 });
 
 
-/////////////////////////////////////////////////////////
-// 카테고리
+
 
 
 category_modify_btn.addEventListener('click', ()=>{
@@ -353,8 +339,6 @@ function category_insert() {
 
 
 
-//////////////////////////////////////////////////////////
-// 저장버튼
 
 modify_btn.addEventListener('click', ()=>{
     Swal.fire({
@@ -365,7 +349,6 @@ modify_btn.addEventListener('click', ()=>{
         denyButtonText: `취소`,
     }).then((result) => {
         if (result.isConfirmed) {
-            // category_insert();
             sendModify();
         }
     });
@@ -413,9 +396,6 @@ function sendModify(){
 };
 
 
-
-////////////////////////////////////////////////////////////
-// 회원탈퇴
 
 
 delete_btn.addEventListener('click', ()=>{

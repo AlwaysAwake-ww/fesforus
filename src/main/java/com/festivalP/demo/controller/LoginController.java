@@ -34,33 +34,24 @@ public class LoginController {
     private final AdminService adminService;
     public WeakHashMap<String, String> authData = new WeakHashMap<>();
 
-    // 로그인
     @ResponseBody
     @PostMapping("/member/login")
     public String login(String login_id, String login_password, HttpServletRequest request) {
 
-        System.out.println("login_id: " + login_id);
-        System.out.println("login_password: " + login_password);
-
-
         if (memberService.memberExistCheck(login_id, login_password)) {
-        // 입력받은 아이디, 패스워드를 가진 멤버가 존재한다면
             try {
                 AuthInfo authInfo = memberService.getMemberAuthInfo(login_id);
                 Member member = memberService.getMemberAllInfo(login_id);
                 if(member.getMemberState()==1 ||member.getMemberState()==3)
                     return "F";
-//                else if(member.getMemberState()==3)
-//                    return "T";
+
                 member.setMemberPw(null);
                 HttpSession session = request.getSession();
-                System.out.println("## login authinfo State :: "+authInfo.getState());
                 session.setAttribute("authInfo", authInfo);
                 session.setAttribute("member", member);
 
                 return "S";
             } catch (Exception e) {
-                System.out.println("login failed: "+e.toString());
                 return "F";
 
             }
@@ -77,10 +68,6 @@ public class LoginController {
     @PostMapping("/member/adminlogin")
     public String adminlogin(String login_id, String login_password, HttpServletRequest request) {
 
-        System.out.println("login_id: " + login_id);
-        System.out.println("login_password: " + login_password);
-
-
         if (adminService.adminExistCheck(login_id, login_password)) {
             try {
 
@@ -96,7 +83,6 @@ public class LoginController {
 
                 return "S";
             } catch (Exception e) {
-                System.out.println("login failed: "+e.toString());
                 return "F";
 
             }
@@ -107,13 +93,11 @@ public class LoginController {
         }
     }
 
-    // 로그아웃
 
     @ResponseBody
     @PostMapping("/member/logout")
     public String logout(HttpSession session) {
 
-        // 로그아웃 시 세션 삭제
         session.invalidate();
         return "redirect:/";
     }

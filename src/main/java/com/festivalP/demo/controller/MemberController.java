@@ -26,7 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.sql.Date;
 
-//import javax.validation.Valid;
 
 
 @Controller
@@ -38,12 +37,9 @@ public class MemberController {
     public WeakHashMap<String, String> authData = new WeakHashMap<>();
 
 
-    //////////////////
-    // 어드민 회원가입 페이지
     @GetMapping("/member/adminsignup")
     public String createAdminForm(Model model){
         model.addAttribute("adminForm", new AdminForm());
-        // resource 의 HTML 경로
         return "member/adminSignUpForm";
     }
 
@@ -58,13 +54,9 @@ public class MemberController {
         admin.setAdminPw(adminForm.getPw());
 
         adminService.join(admin);
-        System.out.println("관리자 회원가입성공");
-        // 회원가입 완료 시 리턴 페이지
         return "redirect:/";
     }
 
-    ////////////////////////////////
-    // admin 아이디 중복체크
     @ResponseBody
     @PostMapping("/admin/iddupcheck")
     public String adminiddupcheck(String adminId){
@@ -78,12 +70,9 @@ public class MemberController {
     }
 
 
-    /////////////////////////
-    // 멤버 회원가입
     @GetMapping("/member/signup")
     public String createForm(Model model){
         model.addAttribute("memberForm", new MemberForm());
-        // resource 의 HTML 경로
         return "member/signUpForm";
     }
 
@@ -104,8 +93,6 @@ public class MemberController {
         member.setMemberState(form.getState());
 
         memberService.join(member);
-        System.out.println("회원가입성공");
-        // 회원가입 완료 시 리턴 페이지
         return "redirect:/";
     }
 
@@ -119,7 +106,6 @@ public class MemberController {
     }
 
 
-    // 마이페이지
     @GetMapping("/member/mypage")
     public String mypage(HttpSession session, Model model){
 
@@ -150,7 +136,6 @@ public class MemberController {
 
         session.setAttribute("member", memberService.updateInfo(member));
 
-        System.out.println("$$$ wowwowow modifyyyy");
         return "modify success";
     }
 
@@ -164,7 +149,6 @@ public class MemberController {
             try {
                 return "S";
             } catch (Exception e) {
-                System.out.println("login failed: "+e.toString());
                 return "F";
 
             }
@@ -178,13 +162,11 @@ public class MemberController {
     @PostMapping("/member/mypage/pwmodify")
     public String pwModify(@RequestParam("login_id")String login_id, @RequestParam("pw_modify_login_password")String pw_modify_login_password){
 
-        System.out.println("## pwModify func Controller");
         if (memberService.memberExistCheck(login_id, pw_modify_login_password)) {
 
             try {
                 return "S";
             } catch (Exception e) {
-                System.out.println("login failed: "+e.toString());
                 return "F";
 
             }
@@ -199,8 +181,6 @@ public class MemberController {
 
         Member member = (Member)session.getAttribute("member");
 
-        System.out.println(member.getMemberId());
-        System.out.println(member.getMemberPw());
         return "member/memberPasswordModifyPage";
     }
 
@@ -212,7 +192,6 @@ public class MemberController {
         member.setMemberPw(password);
         session.setAttribute("member", memberService.updatePassword(member));
 
-        System.out.println("$$$ wowwowow modifyyyy");
         return "modify success";
     }
 
@@ -222,14 +201,11 @@ public class MemberController {
 
         Member member = (Member)session.getAttribute("member");
 
-        System.out.println(member.getMemberId());
-        System.out.println(member.getMemberPw());
         return "member/memberModifyPage";
     }
 
 
 
-    // 아이디 중복체크
     @ResponseBody
     @PostMapping("/member/iddupcheck")
     public String iddupcheck(String memberId){
@@ -242,7 +218,6 @@ public class MemberController {
         }
     }
 
-    // 닉네임 중복체크
     @ResponseBody
     @PostMapping("/member/nicknamedupcheck")
     public String nicknamedupcheck(String memberNickname){
@@ -260,7 +235,6 @@ public class MemberController {
     public String emaildupcheck(String memberEmail){
 
         if(memberService.validateDuplicateMemberEmail(memberEmail)){
-            System.out.println("### email dup check true");
             return "S";
         }
         else{
@@ -273,14 +247,12 @@ public class MemberController {
     JavaMailSender mailSender;
 
 
-    // 인증메일 발송
     @ResponseBody
     @PostMapping("/member/emailAuth")
     public String emailAuth(String email){
         Random random = new Random();
         int checkNum = random.nextInt(888888) + 111111;
 
-        // 메일 발송
         String setFrom = "wowinteresting234@gmail.com";
         String toMail = email;
         String title = "인증 메일입니다.";
@@ -307,7 +279,6 @@ public class MemberController {
         return Integer.toString(checkNum);
     }
 
-    // 이메일 인증번호 체크
     @ResponseBody
     @PostMapping("/member/emailAuthCheck")
     public String emailAuthCheckFunction(String email, String emailAuthValue){
@@ -320,9 +291,7 @@ public class MemberController {
             return "F";
         }
     }
-    
-    /////////////////////////////////////////////////////////////////
-    // 아이디/비밀번호 찾기
+
     @GetMapping("/member/findaccount")
     public String findAccount(Model model){
 
@@ -345,16 +314,13 @@ public class MemberController {
     @PostMapping("/member/findaccountpw")
     public String findAccountPasswordSubmit(@RequestParam("memberId") String memberId, @RequestParam("memberEmail")String memberEmail){
 
-        // 받은 이메일로 아이디 찾기
         String id = memberService.getMemberIdByEmail(memberEmail);
 
 
         if(id.equals(memberId)){
-            // 찾은 아이디가 입력받은 아이디와 같으면
-            // 이메일로 임시 비밀번호 전송
 
-            int leftLimit = 48; // numeral '0'
-            int rightLimit = 122; // letter 'z'
+            int leftLimit = 48;
+            int rightLimit = 122;
             int targetStringLength = 10;
             Random random = new Random();
             String generatedString = random.ints(leftLimit, rightLimit + 1)
@@ -364,10 +330,6 @@ public class MemberController {
                     .toString();
 
 
-//            Random random = new Random();
-//            int checkNum = random.nextInt(888888) + 111111;
-
-            // 메일 발송
             String setFrom = "wowinteresting234@gmail.com";
             String toMail = memberEmail;
             String title = "임시 비밀번호입니다.";
@@ -395,7 +357,6 @@ public class MemberController {
             return "S";
         }
         else{
-            // 다르면
 
             return "F";
         }

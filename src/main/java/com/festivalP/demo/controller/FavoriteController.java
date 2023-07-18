@@ -32,7 +32,6 @@ public class FavoriteController {
     public String favoriteAdd(Long post_num, Long member_index){
 
 
-        System.out.println("@@@@@@@@@@@@@@ favoriteModify controller");
 
         try{
 
@@ -52,7 +51,6 @@ public class FavoriteController {
             }
 
         }catch(Exception e){
-            System.out.println("@@@@@@@@@@@@@@ Favoritemodify Exception: "+e.toString());
 
             return "F";
         }
@@ -93,8 +91,6 @@ public class FavoriteController {
     @PostMapping("/favoritefestival/scroll")
     @ResponseBody
     public Page<Posts> list(Model model, String keyword, @PageableDefault(size =6,page=0, direction = Sort.Direction.DESC) Pageable pageable,@RequestParam String direction, String sort, HttpSession session) {
-        System.out.println("=========================");
-        System.out.println("scroll page keyword :" + keyword);
 
         Member member = (Member)session.getAttribute("member");
 
@@ -110,11 +106,9 @@ public class FavoriteController {
                 festivals = favoriteService.sortOld(member.getMemberIndex(),pageable);
             }
 
-//            festivals = favoriteService.paging2(member.getMemberIndex(),pageable);
         } else {
             festivals = favoriteService.paging(member.getMemberIndex(), keyword, pageable);
         }
-        System.out.println(festivals.getTotalPages()); //2
         return festivals;
     }
 }

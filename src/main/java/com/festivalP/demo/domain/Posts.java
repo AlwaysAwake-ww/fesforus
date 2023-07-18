@@ -13,7 +13,6 @@ import java.util.List;
 
 @Entity(name="Posts")
 @Table
-//@Table(name = "POSTS")
 
 @Getter
 @Setter
@@ -41,16 +40,16 @@ public class Posts extends BaseTimeEntity{
     private Long reviewScoreAvg;
 
     @Column(name="board_addr")
-    private String boardAddr; //주소
+    private String boardAddr;
 
     @Column(name="board_loc_addr")
-    private Long boardLocAddr; //지역주소
+    private Long boardLocAddr;
     
     @Column(name="content_image")
     private String contentImage;
 
     @Column(name="progress_state")
-    private String progressState; //진행상태
+    private String progressState;
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")

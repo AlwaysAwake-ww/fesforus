@@ -23,7 +23,6 @@ public class Contact {
     @Column(name="contact_email")
     private String contactEmail;
 
-//    private String contact_number;
     @Column(name="contact_text")
     private String contactText;
 }

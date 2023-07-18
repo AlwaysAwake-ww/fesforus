@@ -36,7 +36,6 @@ public class NoticeRepository {
         return result;
     }
 
-    //각 공지 들어갈 때
 
     public List<Notice> findByPost_num(Long post_num) {
         return em.createQuery("select n from Notice n where n.post_num = :post_num", Notice.class).setParameter("post_num", post_num).getResultList();
@@ -64,7 +63,6 @@ public class NoticeRepository {
 
 
 
-//        return em.createQuery("select n from Notice n order by n.modifiedDate desc", Notice.class).setFirstResult(0).setMaxResults(1).getResultList();
     }
 
     public Notice findOne(Long postNum) {
@@ -72,9 +70,7 @@ public class NoticeRepository {
 
     }
 
-//    public List<Notice> findByNoticeRecent3(){
-//        return em.createQuery("select n from Notice n order by n.noticeDate desc", Notice.class).setMaxResults(1).getResultList();
-//    }
+
 
 
 }
