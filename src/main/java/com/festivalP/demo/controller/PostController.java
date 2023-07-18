@@ -38,16 +38,10 @@ public class PostController {
     //전체 축제리스트 불러오는 부분
     @GetMapping("/allfestival")
     public String list(Model model, @PageableDefault(size =6,page=0, sort="contentViews", direction = Sort.Direction.DESC) Pageable pageable,String keyword) {
-//        List<Posts> festivals = festivalService.findFestivals();
-        System.out.println("allfestival keyword");
 
-        System.out.println(pageable.getPageNumber());
-        System.out.println(pageable.getSort());
         String[] sortDirection  = String.valueOf(pageable.getSort()).split(":");
         String sort = sortDirection[0].trim();
         String direction = sortDirection[1].trim();
-        System.out.println("sort : "+ sort);
-        System.out.println("direction : "+ direction);
 
         Page<Posts> festivals = null;
         if(keyword == null) {
@@ -57,8 +51,7 @@ public class PostController {
         }
         model.addAttribute("posts",festivals);
         model.addAttribute("keyword", keyword);
-//        model.addAttribute("pageable", pageable);
-                model.addAttribute("pageable", pageable);
+        model.addAttribute("pageable", pageable);
         model.addAttribute("sort",sort);
         model.addAttribute("direction",direction);
         return "every_festival_board";
@@ -70,13 +63,6 @@ public class PostController {
     public Page<Posts> list(Model model, String keyword, @PageableDefault(size =6,page=0,direction = Sort.Direction.DESC) Pageable pageable ,@RequestParam String direction,String sort) {
 
         Sort sort1 = Sort.by("postNum").descending();
-        System.out.println("=========================");
-        System.out.println("direction:" + direction);
-        System.out.println("keyword:" + keyword.length());
-        System.out.println("sort:" + sort);
-        System.out.println("scroll page keyword :" + keyword);
-        System.out.println(pageable.getPageNumber());
-        System.out.println(pageable.getSort());
         Page<Posts> festivals = null;
         if(keyword.length() == 0) {
             if(direction.equals("DESC") && sort.equals("contentViews")) {
@@ -89,7 +75,6 @@ public class PostController {
         }else {
             festivals = festivalService.paging(keyword, pageable);
         }
-        System.out.println(festivals.getTotalPages()); //2
 
         return festivals;
     }
@@ -135,7 +120,6 @@ public class PostController {
     @ResponseBody
     public HashMap<String, Object> Review(@RequestBody Review data) {
         festivalService.saveReview(data);
-        System.out.println(festivalService.saveReview(data));
         return null;
     }
 

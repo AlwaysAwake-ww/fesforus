@@ -13,7 +13,6 @@ import java.io.IOException;
 @Component
 public class LoginFilter implements Filter {
 
-//    private static final String[] unAuthList = {"/","/member/signup", "/board/allfestival","/**"};
     private static final String[] unAuthList = {"/**"};
 
     @Override
@@ -28,20 +27,15 @@ public class LoginFilter implements Filter {
         try {
 
             if(!PatternMatchUtils.simpleMatch(unAuthList, requestURI)){
-                // unAuthList에 있는 URI와 requestURI가 매치되지 않는다면 (인증이 필요한 )
 
-                System.out.println(session.getAttribute("authInfo"));
                 if(session.getAttribute("authInfo")==null){
-//                    System.out.println("#### session is null!!!");
-//                    System.out.println("### rerquestURI: "+requestURI);
+
 
                     httpServletResponse.sendRedirect("/");
                     return;
                 }
             }
 
-//            System.out.println("########### Login FILTER out ");
-//            System.out.println("########################### ");
         } catch(Exception e){
 
         }
