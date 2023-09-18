@@ -15,3 +15,9 @@
 
 
 ![image](https://user-images.githubusercontent.com/32862865/208608721-690574b8-deed-4531-88ef-df3bab4f52cf.png)
+
+
+
+
+* 동작 과정
+![workflow drawio](https://github.com/AlwaysAwake-ww/fesforus/assets/32862865/33434ab9-a66e-4960-b99f-ad3dd15e077b)
